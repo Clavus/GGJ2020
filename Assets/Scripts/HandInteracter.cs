@@ -50,7 +50,7 @@ public class HandInteracter : MonoBehaviour, IInteracter
 	public void Attach(IInteractable interactable)
 	{
 		grabbedInteractable = interactable;
-		interactable.GrabTransform.SetParent(transform);
+		interactable.GrabTransform.SetParent(transform.parent, false); // Attach to hand anchor
 	}
 
 	private void OnTriggerEnter(Collider other)
