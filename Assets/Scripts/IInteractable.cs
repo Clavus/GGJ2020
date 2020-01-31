@@ -3,7 +3,7 @@ using UnityEngine;
 
 public interface IInteractable
 {
-	Rigidbody Body { get; }
+	Transform GrabTransform { get; }
 
 	bool CanGrab { get; }
 	void Grab(IInteracter interacter);
