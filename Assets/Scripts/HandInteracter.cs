@@ -15,6 +15,7 @@ public class HandInteracter : MonoBehaviour, IInteracter
 	public EHand Hand => hand;
 
 	private IInteractable interactableInFocus;
+	private IInteractable grabbedInteractable;
 
 	void Start()
 	{
@@ -25,16 +26,31 @@ public class HandInteracter : MonoBehaviour, IInteracter
 	{
 		if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, hand == EHand.Left ? OVRInput.Controller.LTouch : hand == EHand.Right ? OVRInput.Controller.RTouch : OVRInput.Controller.Touch))
 		{
-			Debug.Log("Trigger pulled on " + hand);
+			if (grabbedInteractable != null && grabbedInteractable.CanInteract)
+				grabbedInteractable.Interact(this);
+		}
+		else if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger, hand == EHand.Left ? OVRInput.Controller.LTouch : hand == EHand.Right ? OVRInput.Controller.RTouch : OVRInput.Controller.Touch))
+		{
+			if (grabbedInteractable != null && grabbedInteractable.CanInteract)
+				grabbedInteractable.StopInteract();
 		}
 
 		if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, hand == EHand.Left ? OVRInput.Controller.LTouch : hand == EHand.Right ? OVRInput.Controller.RTouch : OVRInput.Controller.Touch))
 		{
-			Debug.Log("Hand grab pulled on " + hand);
-			if (interactableInFocus != null)
-				interactableInFocus.Interact(this);
+			if (interactableInFocus != null && interactableInFocus.CanGrab)
+				interactableInFocus.Grab(this);
 		}
+		else if (OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger, hand == EHand.Left ? OVRInput.Controller.LTouch : hand == EHand.Right ? OVRInput.Controller.RTouch : OVRInput.Controller.Touch))
+		{
+			if (grabbedInteractable != null)
+				grabbedInteractable.StopGrab();
+		}
+	}
 
+	public void Attach(IInteractable interactable)
+	{
+		grabbedInteractable = interactable;
+		interactable.GrabTransform.SetParent(transform);
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -47,4 +63,5 @@ public class HandInteracter : MonoBehaviour, IInteracter
 		if (interactableInFocus == other.GetComponentOrAtBody<IInteractable>())
 			interactableInFocus = null;
 	}
+
 }
