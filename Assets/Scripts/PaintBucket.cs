@@ -4,26 +4,29 @@ using UnityEngine;
 
 public class PaintBucket : MonoBehaviour
 {
-    public Color paintbucketColor;
-    private Renderer _renderer;
+	public Color paintbucketColor;
+	private Renderer _renderer;
 
-    private void Awake()
-    {
-        _renderer = GetComponent<Renderer>();
-        if (_renderer != null) _renderer.material.color = paintbucketColor;
-    }
+	private void Awake()
+	{
+		_renderer = GetComponentInChildren<Renderer>();
+		if (_renderer != null)
+			_renderer.material.SetColor("_BaseColor", paintbucketColor);
+	}
 
-    public void ChangePaintOnBrush(PaintBrush brush)
-    {
-        brush.color = paintbucketColor;
-    }
+	public void ChangePaintOnBrush(PaintBrush brush)
+	{
+		brush.color = paintbucketColor;
+		Debug.Log("Changed paintbrush color to: " + paintbucketColor);
+	}
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.GetComponent<PaintBrush>() != null)
-        {
-            PaintBrush brush = other.gameObject.GetComponent<PaintBrush>();
-            ChangePaintOnBrush(brush);
-        }
-    }
+	private void OnTriggerEnter(Collider other)
+	{
+		PaintBrush paintBrush = other.GetComponentOrAtBody<PaintBrush>();
+
+		if (paintBrush != null)
+		{
+			ChangePaintOnBrush(paintBrush);
+		}
+	}
 }

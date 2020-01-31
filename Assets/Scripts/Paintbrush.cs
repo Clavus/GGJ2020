@@ -16,6 +16,7 @@ public class PaintBrush : MonoBehaviour, IInteractable
 		transform.localPosition = Vector3.zero;
 		transform.localRotation = Quaternion.identity;
 		body.useGravity = false;
+		body.isKinematic = true;
 		interacter.Attach(this);
 	}
 
@@ -28,6 +29,7 @@ public class PaintBrush : MonoBehaviour, IInteractable
 	{
 		var body = GetComponent<Rigidbody>();
 		body.useGravity = true;
+		body.isKinematic = false;
 		transform.SetParent(null);
 	}
 
