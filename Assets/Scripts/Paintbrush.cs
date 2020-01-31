@@ -2,19 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PaintBrush : MonoBehaviour
+public class PaintBrush : MonoBehaviour, IInteractable
 {
-    public Color color;
+	public Color color;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public Rigidbody Body => GetComponent<Rigidbody>();
+	public bool CanGrab => true;
+	public bool CanInteract => true;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public void Grab(IInteracter interacter)
+	{
+		interacter.Attach(this);
+	}
+
+	public void Interact(IInteracter interacter)
+	{
+
+	}
+
+	public void StopGrab()
+	{
+		Body.useGravity = true;
+		Body.transform.SetParent(null);
+	}
+
+	public void StopInteract()
+	{
+
+	}
 }
