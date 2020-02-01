@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d6137783dcd0b48b82a82f92704631, type: 3}
   m_Name: SittingCatScenario
   m_EditorClassIdentifier: 
-  lineArt: {fileID: 0}
-  colorLayer: {fileID: 0}
-  incorrectColorLayers: []
+  lineArt: {fileID: 2800000, guid: b09c93a3c0bf249e39f5d8bc4d5151ef, type: 3}
+  colorLayer: {fileID: 2800000, guid: 58265ca62bad54c9693b67920cca35a0, type: 3}
+  incorrectColorLayers:
+  - {fileID: 2800000, guid: 4145268e9e0654a70bbe33650161ebd9, type: 3}
+  - {fileID: 2800000, guid: bbecdb51d7ac14eb5aacbe75488774db, type: 3}
+  - {fileID: 2800000, guid: 627b28cef47254c9f923e95afb871e31, type: 3}
+  difficulty: 1
