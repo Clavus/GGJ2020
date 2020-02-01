@@ -6,21 +6,19 @@ public class PaintBucket : MonoBehaviour
 {
 	public Color paintbucketColor;
 	private AudioSource soundEffect;
-    private ParticleSystem splash;
+	private ParticleSystem splash;
 
 	private void Awake()
 	{
 		soundEffect = GetComponent<AudioSource>();
 	}
 
-    private void Start()
-    {
-        splash = GetComponentInChildren<ParticleSystem>();
-        ParticleSystem.MainModule mainParticle = splash.main;
-        mainParticle.startColor = paintbucketColor;
-    }
+	private void Start()
+	{
+		splash = GetComponentInChildren<ParticleSystem>();
+	}
 
-    public void ChangePaintOnBrush(PaintBrush2000 brush)
+	public void ChangePaintOnBrush(PaintBrush2000 brush)
 	{
 		brush.Color = paintbucketColor;
 		Debug.Log("Changed paintbrush color to: " + paintbucketColor);
@@ -35,7 +33,7 @@ public class PaintBucket : MonoBehaviour
 			ChangePaintOnBrush(paintBrush);
 			soundEffect.pitch = 0.8f + Random.value * 0.4f;
 			soundEffect.PlayOneShot(soundEffect.clip);
-            splash.Play();
+			splash.Play();
 		}
 	}
 }
