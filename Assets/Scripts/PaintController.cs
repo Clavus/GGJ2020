@@ -33,13 +33,13 @@ public class PaintController : MonoBehaviour
 		block.SetTexture("_LineArtTexture", lineArtTexture);
 		meshRenderer.SetPropertyBlock(block);
 	}
-	
-	public void CalculateCorrectnessFraction(Texture2D correctTexture, float colorDistanceThreshold, System.Action<float> callback)
+
+	public void CalculateCorrectnessFraction(Texture2D correctTexture, float colorDistanceThreshold, System.Action<float> intermediateCallback, System.Action<float> finalCallback)
 	{
-		StartCoroutine(CalculateCorrectnessFractionRoutine(correctTexture, colorDistanceThreshold, callback));
+		StartCoroutine(CalculateCorrectnessFractionRoutine(correctTexture, colorDistanceThreshold, intermediateCallback, finalCallback));
 	}
 
-	private IEnumerator CalculateCorrectnessFractionRoutine(Texture2D correctTexture, float colorDistanceThreshold, System.Action<float> callback)
+	private IEnumerator CalculateCorrectnessFractionRoutine(Texture2D correctTexture, float colorDistanceThreshold, System.Action<float> intermediateCallback, System.Action<float> finalCallback)
 	{
 		int w = correctTexture.width;
 		int h = correctTexture.height;
@@ -69,11 +69,15 @@ public class PaintController : MonoBehaviour
 			colorIndex += numPixelsCalculated;
 			pixelsToCalculate -= numPixelsCalculated;
 			y += correctnessCalculateRowsPerFrame;
-			yield return null;
+
+			if (pixelsToCalculate > 0)
+			{
+				intermediateCallback?.Invoke(numCorrect / (float)(w * h));
+				yield return null;
+			}
 		}
 
-		Debug.Log("Correct pixels: " + numCorrect);
-		callback?.Invoke(numCorrect / (float)(w * h));
+		finalCallback?.Invoke(numCorrect / (float)(w * h));
 
 	}
 
@@ -93,20 +97,20 @@ public class PaintController : MonoBehaviour
 		// Calculate where the collider hit in this objects local space
 		Vector3 hitPoint = transform.InverseTransformPoint(other.gameObject.transform.position);
 		Vector3 hitPointScaled = new Vector3(hitPoint.x * gameObject.transform.localScale.x, hitPoint.y * gameObject.transform.localScale.y, hitPoint.z * gameObject.transform.localScale.z);
-		Debug.Log("Hit at: " + hitPoint);
-		Debug.Log("Scaled hit at: " + hitPointScaled);
+		//Debug.Log("Hit at: " + hitPoint);
+		//Debug.Log("Scaled hit at: " + hitPointScaled);
 
 		// Move this objects local space origin to the bottom left corner to match the Texture2D origin
 		Vector3 halfSpriteSizeLocalSpace = meshRenderer.bounds.size / 2;
 		Vector3 hitPointPixelSpace = hitPointScaled + halfSpriteSizeLocalSpace;
-		Debug.Log("Hit in pixel space: " + hitPointPixelSpace);
+		//Debug.Log("Hit in pixel space: " + hitPointPixelSpace);
 
 		// Scale the hit from local size to pixel size
 		float scaleX = (meshRenderer.bounds.size.x) / paintTexture.width;
 		float scaleY = (meshRenderer.bounds.size.y) / paintTexture.height;
 		hitPointPixelSpace.x /= scaleX;
 		hitPointPixelSpace.y /= scaleY;
-		Debug.Log(hitPointPixelSpace);
+		//Debug.Log(hitPointPixelSpace);
 
 		// Change the color of the pixels to the paint color
 		Color[] paint = Enumerable.Repeat(paintBrush.Color, _brushSize * _brushSize).ToArray();

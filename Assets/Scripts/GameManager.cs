@@ -43,6 +43,7 @@ public enum GameStates
 	INTRO,
 	PLAYING,
 	SHOW_SCORE,
+	WAIT_FOR_NEXT,
 	GAME_OVER,
 	FINISH
 }
