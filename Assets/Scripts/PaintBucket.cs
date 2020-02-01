@@ -5,6 +5,7 @@ using UnityEngine;
 public class PaintBucket : MonoBehaviour
 {
 	public Color paintbucketColor;
+	private AudioSource soundEffect;
 	private Renderer _renderer;
 
 	private void Awake()
@@ -12,11 +13,13 @@ public class PaintBucket : MonoBehaviour
 		_renderer = GetComponentInChildren<Renderer>();
 		if (_renderer != null)
 			_renderer.material.SetColor("_BaseColor", paintbucketColor);
+		soundEffect = GetComponent<AudioSource>();
 	}
 
 	public void ChangePaintOnBrush(PaintBrush brush)
 	{
 		brush.color = paintbucketColor;
+		soundEffect.PlayOneShot(soundEffect.clip);
 		Debug.Log("Changed paintbrush color to: " + paintbucketColor);
 	}
 
