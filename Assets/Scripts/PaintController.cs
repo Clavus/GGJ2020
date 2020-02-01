@@ -74,8 +74,10 @@ public class PaintController : MonoBehaviour
 		{
 			for (int y = 0; y < _brushSize; y++)
 			{
-				if (Vector2.Distance(new Vector2(x, y), new Vector2(brushRadius, brushRadius)) < brushRadius)
-					colors[x + y * _brushSize] = paint[x + y * _brushSize];
+				int index = x + y * _brushSize;
+				if (!IsBlack(colors[index]))
+					if (Vector2.Distance(new Vector2(x, y), new Vector2(brushRadius, brushRadius)) < brushRadius)
+						colors[index] = paint[index];
 			}
 		}
 
@@ -83,5 +85,10 @@ public class PaintController : MonoBehaviour
 		texture.Apply();
 		if (!audio.isPlaying)
 			audio.PlayOneShot(audio.clip);
+	}
+
+	private bool IsBlack(Color color)
+	{
+		return color.r < 0.1f && color.b < 0.1f && color.g < 0.1f;
 	}
 }
