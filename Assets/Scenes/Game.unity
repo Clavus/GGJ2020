@@ -843,6 +843,11 @@ PrefabInstance:
       propertyPath: paintingSwitcher
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4439883322439442877, guid: 0e3bf6f9e7b3fd14baaf4558d613967a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4439883323523902537, guid: 0e3bf6f9e7b3fd14baaf4558d613967a,
         type: 3}
       propertyPath: m_Name
