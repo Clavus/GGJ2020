@@ -16,7 +16,14 @@ public class Game : MonoBehaviour
 	[SerializeField]
 	private ScenarioSO[] scenarios;
 
+	[SerializeField]
+	private Texture2D introTexture;
+	[SerializeField]
+	private Texture2D introBackground;
+
 	public bool IsScenarioActive { get; private set; }
+
+	public Countdown countdown;
 
 	private void Start()
 	{
@@ -26,7 +33,17 @@ public class Game : MonoBehaviour
 		if (!useVR)
 			XRSettings.enabled = false;
 
-		StartRandomScenario();
+		GameManager.OnGameStateChanged += GameStageChanged;
+
+		if (GameManager.Instance.gameState == GameStates.INTRO) paintCanvas.SetCanvasTexture(introBackground, introTexture);
+	}
+
+	private void GameStageChanged(GameStates currentGameState, GameStates newGameState)
+	{
+		if (newGameState == GameStates.PLAYING)
+		{
+			StartRandomScenario();
+		}
 	}
 
 	private void StartRandomScenario()
@@ -47,6 +64,8 @@ public class Game : MonoBehaviour
 		paintCanvas.SetCanvasTexture(scenarioData.incorrectColorLayers[Random.Range(0, scenarioData.incorrectColorLayers.Length - 1)],
 			scenarioData.lineArt);
 
+		StartCountDown();
+
 		float nextCheck = Time.time + 5f;
 		while (true)
 		{
@@ -66,5 +85,10 @@ public class Game : MonoBehaviour
 		}
 
 		IsScenarioActive = false;
+	}
+
+	private void StartCountDown()
+	{
+		countdown.gameObject.SetActive(true);
 	}
 }
