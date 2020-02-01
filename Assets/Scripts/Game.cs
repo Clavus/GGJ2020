@@ -53,7 +53,13 @@ public class Game : MonoBehaviour
 			if (nextCheck < Time.time)
 			{
 				nextCheck = Time.time + 5f;
-				Debug.Log("Correct perc: " + paintCanvas.GetCorrectnessFraction(scenarioData.colorLayer));
+				var s = System.Diagnostics.Stopwatch.StartNew();
+				int startFrameCount = Time.frameCount;
+				paintCanvas.CalculateCorrectnessFraction(scenarioData.colorLayer, 0.05f, result =>
+				{
+					s.Stop();
+					Debug.Log($"Correct perc: {result}, Elapsed time: {s.ElapsedMilliseconds}ms, Frames: {Time.frameCount - startFrameCount}");
+				});
 			}
 
 			yield return null;

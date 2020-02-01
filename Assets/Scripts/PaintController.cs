@@ -6,6 +6,7 @@ using UnityEngine;
 public class PaintController : MonoBehaviour
 {
 	public Color paintColor = Color.red;
+	public int correctnessCalculateRowsPerFrame = 9;
 
 	private MeshRenderer meshRenderer;
 	private Texture2D paintTexture;
@@ -33,28 +34,47 @@ public class PaintController : MonoBehaviour
 		meshRenderer.SetPropertyBlock(block);
 	}
 
-	public float GetCorrectnessFraction(Texture2D correctTexture, float colorDistanceThreshold = 0.05f)
+	public void CalculateCorrectnessFraction(Texture2D correctTexture, float colorDistanceThreshold, System.Action<float> callback)
+	{
+		StartCoroutine(CalculateCorrectnessFractionRoutine(correctTexture, colorDistanceThreshold, callback));
+	}
+
+	private IEnumerator CalculateCorrectnessFractionRoutine(Texture2D correctTexture, float colorDistanceThreshold, System.Action<float> callback)
 	{
 		int w = correctTexture.width;
 		int h = correctTexture.height;
 
-		Color[] correctColors = correctTexture.GetPixels(0, 0, w, h);
-		Color[] paintingColors = paintTexture.GetPixels(0, 0, w, h);
+		int pixelsToCalculate = w * h;
+		int colorIndex = 0;
 		int numCorrect = 0;
+		int x = 0;
+		int y = 0;
 
-		for (int i = 0; i < correctColors.Length; i++)
+		while (pixelsToCalculate > 0)
 		{
-			float d = 0;
-			d += Mathf.Abs(correctColors[i].r - paintingColors[i].r);
-			d += Mathf.Abs(correctColors[i].g - paintingColors[i].g);
-			d += Mathf.Abs(correctColors[i].b - paintingColors[i].b);
-			if (d <= colorDistanceThreshold)
-				numCorrect++;
+			Color[] correctColors = correctTexture.GetPixels(x, y, w, correctnessCalculateRowsPerFrame);
+			Color[] paintingColors = paintTexture.GetPixels(x, y, w, correctnessCalculateRowsPerFrame);
+
+			for (int i = 0; i < correctColors.Length; i++)
+			{
+				float d = 0;
+				d += Mathf.Abs(correctColors[i].r - paintingColors[i].r);
+				d += Mathf.Abs(correctColors[i].g - paintingColors[i].g);
+				d += Mathf.Abs(correctColors[i].b - paintingColors[i].b);
+				if (d <= colorDistanceThreshold)
+					numCorrect++;
+			}
+
+			int numPixelsCalculated = correctnessCalculateRowsPerFrame * w;
+			colorIndex += numPixelsCalculated;
+			pixelsToCalculate -= numPixelsCalculated;
+			y += correctnessCalculateRowsPerFrame;
+			yield return null;
 		}
 
 		Debug.Log("Correct pixels: " + numCorrect);
+		callback?.Invoke(numCorrect / (float)(w * h));
 
-		return numCorrect / (float)correctColors.Length;
 	}
 
 	private void OnTriggerStay(Collider other)

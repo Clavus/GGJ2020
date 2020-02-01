@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   paintColor: {r: 1, g: 0, b: 0, a: 1}
+  correctnessCalculateRowsPerFrame: 3
 --- !u!65 &9137113311976589933
 BoxCollider:
   m_ObjectHideFlags: 0
