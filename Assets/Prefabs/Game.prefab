@@ -264,7 +264,7 @@ MonoBehaviour:
   paintCanvas: {fileID: 0}
   scenarios:
   - {fileID: 11400000, guid: 06bf6c9b7dda7ea4eb3ed6f5bfc71ce4, type: 2}
-  IsScenarioActive: 0
+  - {fileID: 11400000, guid: b92e13521768f4665913b57d5ad17650, type: 2}
 --- !u!1001 &862853012464303300
 PrefabInstance:
   m_ObjectHideFlags: 0
