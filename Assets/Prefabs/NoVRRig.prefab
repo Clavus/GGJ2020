@@ -47,6 +47,8 @@ MonoBehaviour:
   NoVRCamera: {fileID: 121990042}
   defaultDistance: 0.1
   offsetOnClick: -0.1
+  grabbableOffset: {x: 0, y: 0, z: -0.25}
+  grabbableRotationOffset: {x: -75, y: 0, z: 0}
 --- !u!1 &3717581311502172306
 GameObject:
   m_ObjectHideFlags: 0
