@@ -23,7 +23,7 @@ public class MouseInteracter : MonoBehaviour, IInteracter
 
 	private void Update()
 	{
-		float offsetDistance = 0;
+		float offsetDistance = (!objectExtended ? 0 : offsetOnClick);
 		float castDistance = 2f;
 
 		Ray ray = NoVRCamera.ScreenPointToRay(Input.mousePosition);
