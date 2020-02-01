@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class ButtonPress : MonoBehaviour, IInteractable
 {
 	public Countdown countDownScript;
-	public PaintingSwitcher paintingSwitcher;
 
 	public Transform GrabTransform => throw new System.NotImplementedException();
 
@@ -50,10 +49,8 @@ public class ButtonPress : MonoBehaviour, IInteractable
 	private void Press()
 	{
 		_animation.Play();
-		// TODO: Some kind of trigger to end the game
-		paintingSwitcher.SwitchPainting();
 		//countDownScript.RestartTimer(60);
 		//SceneManager.LoadScene(0);
-		if (GameManager.Instance.gameState == GameStates.INTRO) GameManager.Instance.ChangeGameState(GameStates.PLAYING);
+		Game.Instance.OnButtonPressed();
 	}
 }
