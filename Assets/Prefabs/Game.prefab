@@ -261,6 +261,10 @@ MonoBehaviour:
   vrRig: {fileID: 8043811507276390892}
   noVrRig: {fileID: 8043811506987408184}
   forceStartNoVr: 0
+  paintCanvas: {fileID: 0}
+  scenarios:
+  - {fileID: 11400000, guid: 06bf6c9b7dda7ea4eb3ed6f5bfc71ce4, type: 2}
+  IsScenarioActive: 0
 --- !u!1001 &862853012464303300
 PrefabInstance:
   m_ObjectHideFlags: 0
