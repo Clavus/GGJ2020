@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4390181900750588100}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.37, z: -0}
+  m_LocalPosition: {x: 0, y: -0.251, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5444863653392851322}
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  brushSize: 10
+  brushSize: 20
 --- !u!1 &5444863655139031943
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 5444863655139031936}
   - component: {fileID: 5444863655139031939}
   - component: {fileID: 5444863655139031938}
-  - component: {fileID: 5444863655139031937}
+  - component: {fileID: 6783426949836629611}
   m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
@@ -145,7 +145,7 @@ Transform:
   m_GameObject: {fileID: 5444863655139031943}
   m_LocalRotation: {x: -0, y: -0, z: -1, w: 0.0000029504295}
   m_LocalPosition: {x: 0, y: -0.052199908, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children: []
   m_Father: {fileID: 5444863653392851322}
   m_RootOrder: 0
@@ -196,7 +196,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &5444863655139031937
+--- !u!65 &6783426949836629611
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -207,5 +207,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.09592364, y: 0.6376182, z: 0.09122875}
+  m_Center: {x: 0.000000011175871, y: 0.020748407, z: -0.000000013038516}
