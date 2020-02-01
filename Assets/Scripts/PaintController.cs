@@ -17,12 +17,12 @@ public class PaintController : MonoBehaviour
 		meshRenderer = GetComponent<MeshRenderer>();
 
         // Copy textire
-        texture = meshRenderer.material.mainTexture as Texture2D;
+        texture = Instantiate(meshRenderer.material.mainTexture) as Texture2D;
 
 		// Set copied texture as texture rendered
-		//MaterialPropertyBlock block = new MaterialPropertyBlock();
-		//block.SetTexture("_MainTex", texture);
-		//spriteRenderer.SetPropertyBlock(block);
+		MaterialPropertyBlock block = new MaterialPropertyBlock();
+		block.SetTexture("_BaseMap", texture);
+		meshRenderer.SetPropertyBlock(block);
 	}
 
 	private void OnTriggerStay(Collider other)
