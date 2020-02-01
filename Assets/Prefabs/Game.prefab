@@ -459,8 +459,8 @@ MonoBehaviour:
   scenarios:
   - {fileID: 11400000, guid: 06bf6c9b7dda7ea4eb3ed6f5bfc71ce4, type: 2}
   - {fileID: 11400000, guid: b92e13521768f4665913b57d5ad17650, type: 2}
-  introTexture: {fileID: 0}
-  introBackground: {fileID: 0}
+  introTexture: {fileID: 2800000, guid: e5a01010d6fd89e4fa57896e8b63652b, type: 3}
+  introBackground: {fileID: 2800000, guid: 500dd2af7ad613d4fb48899245c44116, type: 3}
   countdown: {fileID: 0}
 --- !u!1 &8083630639899605228
 GameObject:
