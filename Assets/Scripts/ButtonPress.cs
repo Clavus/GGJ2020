@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class ButtonPress : MonoBehaviour, IInteractable
 {
-    public Collider collider;
     public Countdown countDownScript;
     public PaintingSwitcher paintingSwitcher;
 
@@ -40,7 +39,6 @@ public class ButtonPress : MonoBehaviour, IInteractable
     {
         _animation = GetComponent<Animation>();
         if (_animation == null) Debug.Log("No animation found");
-        if (collider == null) Debug.Log("No collider specified");
     }
 
     private void Press()
