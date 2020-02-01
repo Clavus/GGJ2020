@@ -25,6 +25,7 @@ public class PaintBucket : MonoBehaviour
 		if (paintBrush != null)
 		{
 			ChangePaintOnBrush(paintBrush);
+			soundEffect.pitch = 0.8f + Random.value * 0.4f;
 			soundEffect.PlayOneShot(soundEffect.clip);
 		}
 	}

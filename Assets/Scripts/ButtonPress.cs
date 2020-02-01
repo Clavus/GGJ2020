@@ -54,5 +54,6 @@ public class ButtonPress : MonoBehaviour, IInteractable
 		paintingSwitcher.SwitchPainting();
 		//countDownScript.RestartTimer(60);
 		//SceneManager.LoadScene(0);
+		if (GameManager.Instance.gameState == GameStates.INTRO) GameManager.Instance.ChangeGameState(GameStates.PLAYING);
 	}
 }

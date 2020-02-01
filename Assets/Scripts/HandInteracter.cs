@@ -18,6 +18,7 @@ public class HandInteracter : MonoBehaviour, IInteracter
 
 	private IInteractable interactableInFocus;
 	private IInteractable grabbedInteractable;
+	private float lastFeedbackTime;
 
 	void Start()
 	{
@@ -26,27 +27,30 @@ public class HandInteracter : MonoBehaviour, IInteracter
 
 	void Update()
 	{
-		if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, hand == EHand.Left ? OVRInput.Controller.LTouch : hand == EHand.Right ? OVRInput.Controller.RTouch : OVRInput.Controller.Touch))
+		if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, GetControllerEnum()))
 		{
 			if (grabbedInteractable != null && grabbedInteractable.CanInteract)
 				grabbedInteractable.Interact(this);
 		}
-		else if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger, hand == EHand.Left ? OVRInput.Controller.LTouch : hand == EHand.Right ? OVRInput.Controller.RTouch : OVRInput.Controller.Touch))
+		else if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger, GetControllerEnum()))
 		{
 			if (grabbedInteractable != null && grabbedInteractable.CanInteract)
 				grabbedInteractable.StopInteract();
 		}
 
-		if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, hand == EHand.Left ? OVRInput.Controller.LTouch : hand == EHand.Right ? OVRInput.Controller.RTouch : OVRInput.Controller.Touch))
+		if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, GetControllerEnum()))
 		{
 			if (interactableInFocus != null && interactableInFocus.CanGrab)
 				interactableInFocus.Grab(this);
 		}
-		else if (OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger, hand == EHand.Left ? OVRInput.Controller.LTouch : hand == EHand.Right ? OVRInput.Controller.RTouch : OVRInput.Controller.Touch))
+		else if (OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger, GetControllerEnum()))
 		{
 			if (grabbedInteractable != null)
 				grabbedInteractable.StopGrab();
 		}
+
+		if (lastFeedbackTime < Time.time - 0.05f)
+			OVRInput.SetControllerVibration(0, 0, GetControllerEnum());
 	}
 
 	public void Attach(IInteractable interactable)
@@ -55,6 +59,17 @@ public class HandInteracter : MonoBehaviour, IInteracter
 		interactable.GrabTransform.SetParent(transform.parent, false); // Attach to hand anchor
 		interactable.GrabTransform.localPosition = grabbableOffset;
 		interactable.GrabTransform.localRotation = Quaternion.Euler(grabbableRotationOffset);
+	}
+
+	public void DoFeedback(float multiplier = 1f)
+	{
+		OVRInput.SetControllerVibration(0.05f * multiplier, 0.075f * multiplier, GetControllerEnum());
+		lastFeedbackTime = Time.time;
+	}
+
+	private OVRInput.Controller GetControllerEnum()
+	{
+		return hand == EHand.Left ? OVRInput.Controller.LTouch : hand == EHand.Right ? OVRInput.Controller.RTouch : OVRInput.Controller.Touch;
 	}
 
 	private void OnTriggerEnter(Collider other)

@@ -1534,6 +1534,11 @@ PrefabInstance:
       propertyPath: m_PreserveAspect
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8554358902830183961, guid: 078c31db6416a28409d717f1821d12f5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 078c31db6416a28409d717f1821d12f5, type: 3}
 --- !u!1 &4645541421097653794 stripped
@@ -1724,6 +1729,21 @@ PrefabInstance:
       propertyPath: paintCanvas
       value: 
       objectReference: {fileID: 346113451}
+    - target: {fileID: 8043811507301726400, guid: 07ef39e2296873b4ba4dd66d009faad0,
+        type: 3}
+      propertyPath: introTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 0beedc849bc2ad147b010a0ff122a733, type: 3}
+    - target: {fileID: 8043811507301726400, guid: 07ef39e2296873b4ba4dd66d009faad0,
+        type: 3}
+      propertyPath: introBackground
+      value: 
+      objectReference: {fileID: 2800000, guid: 39e67b2ee32c9734baa3ea1a41989a14, type: 3}
+    - target: {fileID: 8043811507301726400, guid: 07ef39e2296873b4ba4dd66d009faad0,
+        type: 3}
+      propertyPath: countdown
+      value: 
+      objectReference: {fileID: 3949506610913026106}
     - target: {fileID: 8043811507301726402, guid: 07ef39e2296873b4ba4dd66d009faad0,
         type: 3}
       propertyPath: m_Name
