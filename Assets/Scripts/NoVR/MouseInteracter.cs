@@ -22,10 +22,7 @@ public class MouseInteracter : MonoBehaviour, IInteracter
         Vector3 mousePosition = Input.mousePosition;
         mousePosition.z = 1f;
         this.transform.position = NoVRCamera.ScreenToWorldPoint(mousePosition);
-    }
 
-    void FixedUpdate()
-    {
         int layerMask = 1 << 10;
 
         if (Input.GetMouseButtonDown((int)MouseButton.LEFT) && !objectHeld)
@@ -36,10 +33,18 @@ public class MouseInteracter : MonoBehaviour, IInteracter
             {
                 if (mouseRay.transform.GetComponent<IInteractable>() != null)
                 {
-                    objectHeld = true;
                     grabbedInteractable = mouseRay.transform.GetComponent<IInteractable>();
-                    grabbedInteractable.Grab(this);
-                    Debug.Log("Hit brush");
+                    if (grabbedInteractable.CanGrab)
+                    {
+                        objectHeld = true;
+                        grabbedInteractable.Grab(this);
+                        Debug.Log("Hit brush");
+                    }
+                    else
+                    {
+                        grabbedInteractable.Interact(this);
+                    }
+
                 }
             }
         }
@@ -58,6 +63,11 @@ public class MouseInteracter : MonoBehaviour, IInteracter
             objectExtended = false;
             MoveInteractable(grabbedInteractable, -.05f);
         }
+    }
+
+    void FixedUpdate()
+    {
+        
     }
 
     public void Attach(IInteractable interactable)
