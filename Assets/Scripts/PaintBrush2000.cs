@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PaintBrush : MonoBehaviour, IInteractable
+public class PaintBrush2000 : MonoBehaviour, IInteractable
 {
 	public Color color;
 	public int brushSize;

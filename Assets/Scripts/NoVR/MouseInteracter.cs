@@ -4,87 +4,101 @@ using UnityEngine;
 
 public class MouseInteracter : MonoBehaviour, IInteracter
 {
-    Vector3 position;
-    public Camera NoVRCamera;
+	public Camera NoVRCamera;
+	public float defaultDistance = 0.1f;
+	public float offsetOnClick = -0.1f;
 
-    private IInteractable grabbedInteractable;
+	private IInteractable grabbedInteractable;
 
-    private bool objectHeld;
-    private bool objectExtended;
+	private bool objectHeld;
+	private bool objectExtended;
+	private LayerMask grabMask;
+	private LayerMask paintMask;
 
-    void Start()
-    {
-        
-    }
+	void Start()
+	{
+		grabMask = LayerMask.GetMask("Interactable");
+		paintMask = LayerMask.GetMask("PaintCanvas", "PaintBucket");
+	}
 
-    private void Update()
-    {
-        Vector3 mousePosition = Input.mousePosition;
-        mousePosition.z = 1f;
-        this.transform.position = NoVRCamera.ScreenToWorldPoint(mousePosition);
+	private void Update()
+	{
+		float offsetDistance = 0;
+		float castDistance = 2f;
 
-        int layerMask = 1 << 10;
+		Ray ray = NoVRCamera.ScreenPointToRay(Input.mousePosition);
+		LayerMask maskToCast = (!objectHeld ? grabMask : paintMask);
+		RaycastHit mouseRayHit;
 
-        if (Input.GetMouseButtonDown((int)MouseButton.LEFT) && !objectHeld)
-        {
-            Ray ray = NoVRCamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit mouseRay;
-            if (Physics.Raycast(ray, out mouseRay, 10, layerMask))
-            {
-                if (mouseRay.transform.GetComponent<IInteractable>() != null)
-                {
-                    grabbedInteractable = mouseRay.transform.GetComponent<IInteractable>();
-                    if (grabbedInteractable.CanGrab)
-                    {
-                        objectHeld = true;
-                        grabbedInteractable.Grab(this);
-                        Debug.Log("Hit brush");
-                    }
-                    else
-                    {
-                        grabbedInteractable.Interact(this);
-                    }
+		bool hasHit = Physics.Raycast(ray, out mouseRayHit, castDistance, maskToCast.value);
+		Debug.Log("Hit? " + hasHit);
+		Debug.DrawRay(ray.origin, ray.direction, Color.blue);
+		Debug.DrawLine(ray.origin, mouseRayHit.point, Color.red);
 
-                }
-            }
-        }
-        else if (Input.GetMouseButtonDown((int)MouseButton.LEFT) && objectHeld)
-        {
-            objectHeld = false;
-            grabbedInteractable.StopGrab();
-        }
-        else if (Input.GetMouseButtonDown((int)MouseButton.RIGHT) && objectHeld && !objectExtended)
-        {
-            objectExtended = true;
-            MoveInteractable(grabbedInteractable, .05f);
-        }
-        else if (Input.GetMouseButtonUp((int)MouseButton.RIGHT) && objectHeld && objectExtended)
-        {
-            objectExtended = false;
-            MoveInteractable(grabbedInteractable, -.05f);
-        }
-    }
+		if (Input.GetMouseButtonDown((int)MouseButton.LEFT) && !objectHeld)
+		{
+			if (hasHit)
+			{
+				IInteractable interactable = mouseRayHit.collider.GetComponentOrAtBody<IInteractable>();
+				if (interactable != null)
+				{
+					grabbedInteractable = interactable;
+					if (grabbedInteractable.CanGrab)
+					{
+						objectHeld = true;
+						grabbedInteractable.Grab(this);
+						Debug.Log("Hit brush");
+					}
+					else
+					{
+						grabbedInteractable.Interact(this);
+					}
 
-    void FixedUpdate()
-    {
-        
-    }
+				}
+			}
+		}
+		else if (Input.GetMouseButtonDown((int)MouseButton.LEFT) && objectHeld)
+		{
+			objectHeld = false;
+			grabbedInteractable.StopGrab();
+		}
+		else if (Input.GetMouseButtonDown((int)MouseButton.RIGHT) && objectHeld && !objectExtended)
+		{
+			objectExtended = true;
+			offsetDistance = offsetOnClick;
+		}
+		else if (Input.GetMouseButtonUp((int)MouseButton.RIGHT) && objectHeld && objectExtended)
+		{
+			objectExtended = false;
+			offsetDistance = 0;
+		}
 
-    public void Attach(IInteractable interactable)
-    {
-        grabbedInteractable = interactable;
-        interactable.GrabTransform.SetParent(this.transform.GetChild(0).transform, false);
-    }
+		if (hasHit)
+			transform.position = mouseRayHit.point + mouseRayHit.normal * (defaultDistance + offsetDistance);
+		else
+			transform.position = ray.origin + ray.direction * castDistance;
+	}
 
-    private void MoveInteractable(IInteractable interactable, float zOffset)
-    {
-        interactable.GrabTransform.GetComponent<Transform>().position += new Vector3(0, 0, zOffset);
-    }
+	void FixedUpdate()
+	{
+
+	}
+
+	public void Attach(IInteractable interactable)
+	{
+		grabbedInteractable = interactable;
+		interactable.GrabTransform.SetParent(this.transform.GetChild(0).transform, false);
+	}
+
+	private void MoveInteractable(IInteractable interactable, float zOffset)
+	{
+		interactable.GrabTransform.GetComponent<Transform>().position += new Vector3(0, 0, zOffset);
+	}
 }
 
 public enum MouseButton
-{ 
-    LEFT,
-    RIGHT,
-    MIDDLE
+{
+	LEFT,
+	RIGHT,
+	MIDDLE
 }

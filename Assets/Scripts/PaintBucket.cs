@@ -16,7 +16,7 @@ public class PaintBucket : MonoBehaviour
 		soundEffect = GetComponent<AudioSource>();
 	}
 
-	public void ChangePaintOnBrush(PaintBrush brush)
+	public void ChangePaintOnBrush(PaintBrush2000 brush)
 	{
 		brush.color = paintbucketColor;
 		soundEffect.PlayOneShot(soundEffect.clip);
@@ -25,7 +25,7 @@ public class PaintBucket : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		PaintBrush paintBrush = other.GetComponentOrAtBody<PaintBrush>();
+		PaintBrush2000 paintBrush = other.GetComponentOrAtBody<PaintBrush2000>();
 
 		if (paintBrush != null)
 		{
