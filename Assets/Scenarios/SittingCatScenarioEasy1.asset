@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 68d6137783dcd0b48b82a82f92704631, type: 3}
-  m_Name: LyingCatScenarioEasy
+  m_Name: SittingCatScenarioEasy1
   m_EditorClassIdentifier: 
-  lineArt: {fileID: 2800000, guid: f6a484703c8844381a30357500a8e80d, type: 3}
-  colorLayer: {fileID: 2800000, guid: 5794e336a38c847afae76ba952a15d04, type: 3}
+  lineArt: {fileID: 2800000, guid: 2b2c65f24cb4d49d696c3b1fc40d1f27, type: 3}
+  colorLayer: {fileID: 2800000, guid: a6d33a4771e0949d49fa0fb87aecf210, type: 3}
   incorrectColorLayers:
-  - {fileID: 2800000, guid: c47c0fe455d4d4f9b9d7721bbe955065, type: 3}
-  - {fileID: 2800000, guid: bbecdb51d7ac14eb5aacbe75488774db, type: 3}
+  - {fileID: 2800000, guid: 66a2f9124868f4e0c82124b5cfe26141, type: 3}
+  - {fileID: 2800000, guid: 5794e336a38c847afae76ba952a15d04, type: 3}
   difficulty: 1
