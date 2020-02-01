@@ -5,6 +5,7 @@ using UnityEngine;
 public class PaintBrush : MonoBehaviour, IInteractable
 {
 	public Color color;
+	public int brushSize;
 
 	public Transform GrabTransform => transform;
 	public bool CanGrab => true;
