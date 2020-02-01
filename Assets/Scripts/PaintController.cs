@@ -8,46 +8,48 @@ public class PaintController : MonoBehaviour
 	public int brushSize = 20;
 	public Color paintColor = Color.red;
 
-	private SpriteRenderer spriteRenderer;
+	private MeshRenderer meshRenderer;
 	private Texture2D texture;
 
 	// Start is called before the first frame update
 	void Start()
 	{
-		spriteRenderer = GetComponent<SpriteRenderer>();
+		meshRenderer = GetComponent<MeshRenderer>();
 
-		// Copy textire
-		texture = Instantiate(spriteRenderer.sprite.texture) as Texture2D;
+        // Copy textire
+        texture = meshRenderer.material.mainTexture as Texture2D;
 
 		// Set copied texture as texture rendered
-		MaterialPropertyBlock block = new MaterialPropertyBlock();
-		block.SetTexture("_MainTex", texture);
-		spriteRenderer.SetPropertyBlock(block);
+		//MaterialPropertyBlock block = new MaterialPropertyBlock();
+		//block.SetTexture("_MainTex", texture);
+		//spriteRenderer.SetPropertyBlock(block);
 	}
 
 	private void OnTriggerStay(Collider other)
 	{
-		SphereCollider sphere = other as SphereCollider;
-		PaintBrush paintBrush = other.GetComponentOrAtBody<PaintBrush>();
+        SphereCollider sphere = other.gameObject.GetComponent<SphereCollider>();
+        PaintBrush paintBrush = other.gameObject.GetComponentInParent<PaintBrush>();
 
 		if (sphere == null || paintBrush == null)
 			return;
 
 		// Calculate where the collider hit in this objects local space
 		Vector3 hitPoint = transform.InverseTransformPoint(other.gameObject.transform.position);
-		//Debug.Log("Hit at: " + hitPoint);
+        Vector3 hitPointScaled = new Vector3(hitPoint.x * gameObject.transform.localScale.x, hitPoint.y * gameObject.transform.localScale.y, hitPoint.z * gameObject.transform.localScale.z);
+		Debug.Log("Hit at: " + hitPoint);
+        Debug.Log("Scaled hit at: " + hitPointScaled);
 
 		// Move this objects local space origin to the bottom left corner to match the Texture2D origin
-		Vector3 halfSpriteSizeLocalSpace = spriteRenderer.bounds.size / 2;
-		Vector3 hitPointPixelSpace = hitPoint + halfSpriteSizeLocalSpace;
-		//Debug.Log("Hit in pixel space: " + hitPointPixelSpace);
+		Vector3 halfSpriteSizeLocalSpace = meshRenderer.bounds.size / 2;
+		Vector3 hitPointPixelSpace = hitPointScaled + halfSpriteSizeLocalSpace;
+		Debug.Log("Hit in pixel space: " + hitPointPixelSpace);
 
 		// Scale the hit from local size to pixel size
-		float scaleX = (spriteRenderer.bounds.size.x) / texture.width;
-		float scaleY = (spriteRenderer.bounds.size.y) / texture.height;
+		float scaleX = (meshRenderer.bounds.size.x) / texture.width;
+		float scaleY = (meshRenderer.bounds.size.y) / texture.height;
 		hitPointPixelSpace.x /= scaleX;
 		hitPointPixelSpace.y /= scaleY;
-		//Debug.Log(hitPointPixelSpace);
+	    Debug.Log(hitPointPixelSpace);
 
 		// Change the color of the pixels to the paint color
 		Color[] paint = Enumerable.Repeat(paintBrush.color, brushSize * brushSize).ToArray();
