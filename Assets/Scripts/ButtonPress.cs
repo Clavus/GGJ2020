@@ -6,13 +6,17 @@ using UnityEngine.SceneManagement;
 public class ButtonPress : MonoBehaviour, IInteractable
 {
     public Collider collider;
-    private Animation _animation;
+    public Countdown countDownScript;
+    public PaintingSwitcher paintingSwitcher;
 
     public Transform GrabTransform => throw new System.NotImplementedException();
 
     public bool CanGrab => false;
 
     public bool CanInteract => true;
+
+    private Animation _animation;
+
 
     public void Grab(IInteracter interacter)
     {
@@ -39,19 +43,12 @@ public class ButtonPress : MonoBehaviour, IInteractable
         if (collider == null) Debug.Log("No collider specified");
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other == collider)
-        {
-            Press();
-        }
-    }
-
     private void Press()
     {
         _animation.Play();
         // TODO: Some kind of trigger to end the game
-        PaintingSwitcher.Instance.SwitchPainting();
+        paintingSwitcher.SwitchPainting();
+        countDownScript.RestartTimer(60);
         //SceneManager.LoadScene(0);
     }
 }

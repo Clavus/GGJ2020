@@ -26,6 +26,9 @@ public class Countdown : MonoBehaviour
         _timerSeconds = timerSeconds;
         _fillAmountInterval = 1 / timerSeconds;
         _tickerRotationInterval = 360 / timerSeconds;
+
+        tickerTrail.fillAmount = 0;
+        tickerRect.eulerAngles = Vector3.zero;
     }
 
     // Update is called once per frame
