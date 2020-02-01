@@ -8,4 +8,6 @@ public class ScenarioSO : ScriptableObject
 	public Texture2D lineArt;
 	public Texture2D colorLayer;
 	public Texture2D[] incorrectColorLayers;
+	[Range(1, 3)]
+	public int difficulty = 1;
 }
