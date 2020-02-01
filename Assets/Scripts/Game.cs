@@ -11,6 +11,12 @@ public class Game : MonoBehaviour
 	private GameObject noVrRig;
 	[SerializeField]
 	private bool forceStartNoVr;
+	[SerializeField]
+	private PaintController paintCanvas;
+	[SerializeField]
+	private ScenarioSO[] scenarios;
+
+	public bool IsScenarioActive { get; private set; }
 
 	private void Start()
 	{
@@ -19,5 +25,40 @@ public class Game : MonoBehaviour
 		noVrRig.SetActive(!useVR);
 		if (!useVR)
 			XRSettings.enabled = false;
+
+		StartRandomScenario();
+	}
+
+	private void StartRandomScenario()
+	{
+		if (IsScenarioActive)
+		{
+			Debug.LogError("Scenario already active!");
+			return;
+		}
+
+		StartCoroutine(ScenarioRoutine(scenarios[Random.Range(0, scenarios.Length - 1)]));
+	}
+
+	private IEnumerator ScenarioRoutine(ScenarioSO scenarioData)
+	{
+
+		IsScenarioActive = true;
+		paintCanvas.SetCanvasTexture(scenarioData.incorrectColorLayers[Random.Range(0, scenarioData.incorrectColorLayers.Length - 1)],
+			scenarioData.lineArt);
+
+		float nextCheck = Time.time + 5f;
+		while (true)
+		{
+			if (nextCheck < Time.time)
+			{
+				nextCheck = Time.time + 5f;
+				Debug.Log("Correct perc: " + paintCanvas.GetCorrectnessFraction(scenarioData.colorLayer));
+			}
+
+			yield return null;
+		}
+
+		IsScenarioActive = false;
 	}
 }
