@@ -230,6 +230,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7540824990820602926}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &346113451 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1277660404942312390, guid: e0379987c6044684eba9d4845cf2ed84,
+    type: 3}
+  m_PrefabInstance: {fileID: 7540824990820602926}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a82e2c326ff6a3b4a888ba8ce745aa82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &414890316
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1418,6 +1430,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8043811507301726400, guid: 07ef39e2296873b4ba4dd66d009faad0,
+        type: 3}
+      propertyPath: paintCanvas
+      value: 
+      objectReference: {fileID: 346113451}
     - target: {fileID: 8043811507301726402, guid: 07ef39e2296873b4ba4dd66d009faad0,
         type: 3}
       propertyPath: m_Name
