@@ -51,6 +51,8 @@ public class HandInteracter : MonoBehaviour, IInteracter
 	{
 		grabbedInteractable = interactable;
 		interactable.GrabTransform.SetParent(transform.parent, false); // Attach to hand anchor
+		interactable.GrabTransform.localPosition = new Vector3(0, 0.03f, -0.05f);
+		interactable.GrabTransform.localRotation = Quaternion.Euler(-30, 0, 0);
 	}
 
 	private void OnTriggerEnter(Collider other)
