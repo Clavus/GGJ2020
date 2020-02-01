@@ -5,6 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     public void StartVR()
     {
         SceneManager.LoadScene(1);
@@ -18,5 +25,10 @@ public class MainMenuController : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void PlayClickSound()
+    {
+        audioSource.PlayOneShot(audioSource.clip);
     }
 }
