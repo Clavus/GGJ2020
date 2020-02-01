@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class PaintController : MonoBehaviour
 {
-	public int brushSize = 20;
 	public Color paintColor = Color.red;
 
 	private MeshRenderer meshRenderer;
 	private Texture2D texture;
+	private int _brushSize;
 
 	// Start is called before the first frame update
 	void Start()
@@ -37,6 +37,10 @@ public class PaintController : MonoBehaviour
 		if (sphere == null || paintBrush == null)
 			return;
 
+		// Set the brushsize
+		_brushSize = paintBrush.brushSize;
+
+
 		// Calculate where the collider hit in this objects local space
 		Vector3 hitPoint = transform.InverseTransformPoint(other.gameObject.transform.position);
         Vector3 hitPointScaled = new Vector3(hitPoint.x * gameObject.transform.localScale.x, hitPoint.y * gameObject.transform.localScale.y, hitPoint.z * gameObject.transform.localScale.z);
@@ -56,8 +60,8 @@ public class PaintController : MonoBehaviour
 	    Debug.Log(hitPointPixelSpace);
 
 		// Change the color of the pixels to the paint color
-		Color[] paint = Enumerable.Repeat(paintBrush.color, brushSize * brushSize).ToArray();
-		texture.SetPixels((int)Mathf.Clamp(hitPointPixelSpace.x - (brushSize / 2), 0, texture.width - brushSize), (int)Mathf.Clamp(hitPointPixelSpace.y - (brushSize / 2), 0, texture.height - brushSize), brushSize, brushSize, paint, 0);
+		Color[] paint = Enumerable.Repeat(paintBrush.color, _brushSize * _brushSize).ToArray();
+		texture.SetPixels((int)Mathf.Clamp(hitPointPixelSpace.x - (_brushSize / 2), 0, texture.width - _brushSize), (int)Mathf.Clamp(hitPointPixelSpace.y - (_brushSize / 2), 0, texture.height - _brushSize), _brushSize, _brushSize, paint, 0);
 		texture.Apply();
 	}
 }
