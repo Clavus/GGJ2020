@@ -61,7 +61,22 @@ public class PaintController : MonoBehaviour
 
 		// Change the color of the pixels to the paint color
 		Color[] paint = Enumerable.Repeat(paintBrush.color, _brushSize * _brushSize).ToArray();
-		texture.SetPixels((int)Mathf.Clamp(hitPointPixelSpace.x - (_brushSize / 2), 0, texture.width - _brushSize), (int)Mathf.Clamp(hitPointPixelSpace.y - (_brushSize / 2), 0, texture.height - _brushSize), _brushSize, _brushSize, paint, 0);
+		int brushX = (int)Mathf.Clamp(hitPointPixelSpace.x - (_brushSize / 2), 0, texture.width - _brushSize);
+		int brushY = (int)Mathf.Clamp(hitPointPixelSpace.y - (_brushSize / 2), 0, texture.height - _brushSize);
+		Color[] colors = texture.GetPixels(brushX, brushY, _brushSize, _brushSize);
+		float brushRadius = _brushSize * 0.5f;
+
+		// Make paint brush apply color in circular shape
+		for (int x = 0; x < _brushSize; x++)
+		{
+			for (int y = 0; y < _brushSize; y++)
+			{
+				if (Vector2.Distance(new Vector2(x, y), new Vector2(brushRadius, brushRadius)) < brushRadius)
+					colors[x + y * _brushSize] = paint[x + y * _brushSize];
+			}
+		}
+
+		texture.SetPixels(brushX, brushY, _brushSize, _brushSize, colors, 0);
 		texture.Apply();
 	}
 }
