@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class PaintBrush2000 : MonoBehaviour, IInteractable
 {
-	public Color color;
+	[SerializeField] private Color color;
 	public int brushSize;
+	[SerializeField] private Renderer brushRenderer;
+
+	public Color Color {
+		get { return color; }
+		set { color = value; UpdateRenderer(); }
+	}
 
 	public Transform GrabTransform => transform;
 	public bool CanGrab => true;
@@ -36,5 +42,10 @@ public class PaintBrush2000 : MonoBehaviour, IInteractable
 	public void StopInteract()
 	{
 
+	}
+
+	private void UpdateRenderer()
+	{
+		brushRenderer.material.SetColor("_BrushColor", color);
 	}
 }

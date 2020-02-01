@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4390181900750588100}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.251, z: -0}
+  m_LocalPosition: {x: 0, y: -0.2343, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5444863653392851322}
@@ -51,7 +51,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.02
+  m_Radius: 0.032
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5444863653392851327
 GameObject:
@@ -117,6 +117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
   brushSize: 20
+  brushRenderer: {fileID: 5444863655139031938}
 --- !u!1 &5444863655139031943
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,5 +208,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.09592364, y: 0.6376182, z: 0.09122875}
-  m_Center: {x: 0.000000011175871, y: 0.020748407, z: -0.000000013038516}
+  m_Size: {x: 0.09592364, y: 0.61168283, z: 0.09122875}
+  m_Center: {x: 0.000000012417632, y: 0.0077805915, z: -0.000000012417634}
