@@ -101,7 +101,7 @@ public class MouseInteracter : MonoBehaviour, IInteracter
 		interactable.GrabTransform.localRotation = Quaternion.Euler(grabbableRotationOffset);
 	}
 
-	public void DoFeedback()
+	public void DoFeedback(float multiplier = 1f)
 	{
 
 	}

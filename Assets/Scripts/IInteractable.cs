@@ -17,5 +17,5 @@ public interface IInteractable
 public interface IInteracter
 {
 	void Attach(IInteractable interactable);
-	void DoFeedback();
+	void DoFeedback(float multiplier = 1f);
 }

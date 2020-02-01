@@ -61,9 +61,9 @@ public class HandInteracter : MonoBehaviour, IInteracter
 		interactable.GrabTransform.localRotation = Quaternion.Euler(grabbableRotationOffset);
 	}
 
-	public void DoFeedback()
+	public void DoFeedback(float multiplier = 1f)
 	{
-		OVRInput.SetControllerVibration(0.1f, 0.1f, GetControllerEnum());
+		OVRInput.SetControllerVibration(0.05f * multiplier, 0.075f * multiplier, GetControllerEnum());
 		lastFeedbackTime = Time.time;
 	}
 

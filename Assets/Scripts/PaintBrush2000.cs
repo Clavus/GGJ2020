@@ -10,7 +10,7 @@ public class PaintBrush2000 : MonoBehaviour, IInteractable
 
 	public Color Color {
 		get { return color; }
-		set { color = value; UpdateRenderer(); }
+		set { color = value; OnPaintChanged(); }
 	}
 
 	public Transform GrabTransform => transform;
@@ -71,6 +71,14 @@ public class PaintBrush2000 : MonoBehaviour, IInteractable
 	{
 		if (currentInteracter != null)
 			currentInteracter.DoFeedback();
+	}
+
+	private void OnPaintChanged()
+	{
+		if (currentInteracter != null)
+			currentInteracter.DoFeedback(10);
+
+		UpdateRenderer();
 	}
 
 	private void UpdateRenderer()
