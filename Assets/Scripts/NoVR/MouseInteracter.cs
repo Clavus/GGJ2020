@@ -81,8 +81,8 @@ public class MouseInteracter : MonoBehaviour, IInteracter
 
 		if (objectHeld)
 		{
-			grabbedInteractable.GrabTransform.localPosition = new Vector3(0, 0.03f, -0.17f);
-			grabbedInteractable.GrabTransform.localRotation = Quaternion.Euler(-30, 0, 0);
+			grabbedInteractable.GrabTransform.localPosition = new Vector3(0, 0, -0.25f);
+			grabbedInteractable.GrabTransform.localRotation = Quaternion.Euler(-75, 0, 0);
 		}
 	}
 
