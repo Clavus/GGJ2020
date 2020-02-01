@@ -11,6 +11,8 @@ public class HandInteracter : MonoBehaviour, IInteracter
 {
 	[SerializeField]
 	private EHand hand;
+	[SerializeField] private Vector3 grabbableOffset = new Vector3(0, 0.03f, -0.05f);
+	[SerializeField] private Vector3 grabbableRotationOffset = new Vector3(-30, 0, 0);
 
 	public EHand Hand => hand;
 
@@ -51,8 +53,8 @@ public class HandInteracter : MonoBehaviour, IInteracter
 	{
 		grabbedInteractable = interactable;
 		interactable.GrabTransform.SetParent(transform.parent, false); // Attach to hand anchor
-		interactable.GrabTransform.localPosition = new Vector3(0, 0.03f, -0.05f);
-		interactable.GrabTransform.localRotation = Quaternion.Euler(-30, 0, 0);
+		interactable.GrabTransform.localPosition = grabbableOffset;
+		interactable.GrabTransform.localRotation = Quaternion.Euler(grabbableRotationOffset);
 	}
 
 	private void OnTriggerEnter(Collider other)

@@ -7,6 +7,8 @@ public class MouseInteracter : MonoBehaviour, IInteracter
 	public Camera NoVRCamera;
 	public float defaultDistance = 0.1f;
 	public float offsetOnClick = -0.1f;
+	[SerializeField] private Vector3 grabbableOffset = new Vector3(0, 0, -0.25f);
+	[SerializeField] private Vector3 grabbableRotationOffset = new Vector3(-75, 0, 0);
 
 	private IInteractable grabbedInteractable;
 
@@ -77,12 +79,12 @@ public class MouseInteracter : MonoBehaviour, IInteracter
 			transform.position = mouseRayHit.point + mouseRayHit.normal * (defaultDistance + offsetDistance);
 		else
 			transform.position = ray.origin + ray.direction;
-			//transform.position = ray.origin + ray.direction * castDistance;
+		//transform.position = ray.origin + ray.direction * castDistance;
 
 		if (objectHeld)
 		{
-			grabbedInteractable.GrabTransform.localPosition = new Vector3(0, 0, -0.25f);
-			grabbedInteractable.GrabTransform.localRotation = Quaternion.Euler(-75, 0, 0);
+			grabbedInteractable.GrabTransform.localPosition = grabbableOffset;
+			grabbedInteractable.GrabTransform.localRotation = Quaternion.Euler(grabbableRotationOffset);
 		}
 	}
 
@@ -95,8 +97,8 @@ public class MouseInteracter : MonoBehaviour, IInteracter
 	{
 		grabbedInteractable = interactable;
 		interactable.GrabTransform.SetParent(this.transform.GetChild(0).transform, false);
-		interactable.GrabTransform.localPosition = new Vector3(0, 0.03f, -0.05f);
-		interactable.GrabTransform.localRotation = Quaternion.Euler(-30, 0, 0);
+		interactable.GrabTransform.localPosition = grabbableOffset;
+		interactable.GrabTransform.localRotation = Quaternion.Euler(grabbableRotationOffset);
 	}
 }
 

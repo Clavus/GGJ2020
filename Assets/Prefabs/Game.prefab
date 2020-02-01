@@ -93,6 +93,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hand: 1
+  grabbableOffset: {x: -0.012, y: -0.023, z: -0.034}
+  grabbableRotationOffset: {x: -135, y: 0, z: 0}
 --- !u!135 &7040920133250200295
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -199,6 +201,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hand: 2
+  grabbableOffset: {x: 0.012, y: -0.023, z: -0.034}
+  grabbableRotationOffset: {x: -135, y: 0, z: 0}
 --- !u!135 &5384947332938321883
 SphereCollider:
   m_ObjectHideFlags: 0
