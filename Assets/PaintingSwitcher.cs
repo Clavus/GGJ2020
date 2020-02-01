@@ -33,5 +33,6 @@ public class PaintingSwitcher : MonoBehaviour
     {
         int index = UnityEngine.Random.Range(0, Paintings.Length);
         PaintCanvasObject.GetComponent<MeshRenderer>().material = Paintings[index];
+        PaintCanvasObject.GetComponent<PaintController>().UpdateTexture();
     }
 }

@@ -15,9 +15,13 @@ public class PaintController : MonoBehaviour
 	void Start()
 	{
 		meshRenderer = GetComponent<MeshRenderer>();
+		UpdateTexture();
+	}
 
-        // Copy textire
-        texture = Instantiate(meshRenderer.material.mainTexture) as Texture2D;
+	public void UpdateTexture()
+	{
+		// Copy texture
+		texture = Instantiate(meshRenderer.material.mainTexture) as Texture2D;
 
 		// Set copied texture as texture rendered
 		MaterialPropertyBlock block = new MaterialPropertyBlock();
