@@ -457,8 +457,33 @@ MonoBehaviour:
   forceStartNoVr: 0
   paintCanvas: {fileID: 0}
   scenarios:
-  - {fileID: 11400000, guid: 06bf6c9b7dda7ea4eb3ed6f5bfc71ce4, type: 2}
+  - {fileID: 11400000, guid: caf35877ac629274b8cc6858abd36dea, type: 2}
+  - {fileID: 11400000, guid: 8ca443a0a73b7d14ba07d96f6ec23b08, type: 2}
+  - {fileID: 11400000, guid: 7109a1b7e79aaf54e9f58aa3260371e7, type: 2}
+  - {fileID: 11400000, guid: f9beefda9745d4a209fec21ab3ca3dc5, type: 2}
+  - {fileID: 11400000, guid: caa17676e139e6e43982998ce108d5b1, type: 2}
+  - {fileID: 11400000, guid: 8a7439c60b0666742a08956f53558248, type: 2}
+  - {fileID: 11400000, guid: 052a796fd819041679cd1e65139b6005, type: 2}
+  - {fileID: 11400000, guid: 6733bb68166e07349a310491fde05878, type: 2}
+  - {fileID: 11400000, guid: eda7cd8253add2f40aa3984353598841, type: 2}
+  - {fileID: 11400000, guid: 070a24114ccc1485a966a82f52a2a3a9, type: 2}
+  - {fileID: 11400000, guid: 326504fad9f14524faa0b7da4c4609cd, type: 2}
+  - {fileID: 11400000, guid: 95bdb4480915ba644abbbc8a46967d92, type: 2}
+  - {fileID: 11400000, guid: f6fb23eb0313a00438c3782de3d57a11, type: 2}
+  - {fileID: 11400000, guid: b45b9be1887c04adcbb6c3634532a11d, type: 2}
+  - {fileID: 11400000, guid: aa49a97b11709534d94fb8daefab06f1, type: 2}
+  - {fileID: 11400000, guid: 671fdf0b25c026a4096febde19994838, type: 2}
+  - {fileID: 11400000, guid: 345e9f3b33046472d8786751048a5d3e, type: 2}
+  - {fileID: 11400000, guid: a93397883b5c68a4492b32170f7a7f27, type: 2}
+  - {fileID: 11400000, guid: 71fb357247d7e5a41ac974508f256c0c, type: 2}
   - {fileID: 11400000, guid: b92e13521768f4665913b57d5ad17650, type: 2}
+  - {fileID: 11400000, guid: 2d4b5de63e053f447ba41180818dfbae, type: 2}
+  - {fileID: 11400000, guid: 805b117ede6b64f219bfb271f52edc6b, type: 2}
+  - {fileID: 11400000, guid: 64c09597098b67f44b46905e7653a451, type: 2}
+  - {fileID: 11400000, guid: f2d2547040631c443b960e1b0d0e135c, type: 2}
+  - {fileID: 11400000, guid: 06bf6c9b7dda7ea4eb3ed6f5bfc71ce4, type: 2}
+  - {fileID: 11400000, guid: 0732d2bdb29a38c468a3e394d00967c2, type: 2}
+  - {fileID: 11400000, guid: 0e943f0f48b004f4a99182c549d8919d, type: 2}
   introTexture: {fileID: 2800000, guid: e5a01010d6fd89e4fa57896e8b63652b, type: 3}
   introBackground: {fileID: 2800000, guid: 500dd2af7ad613d4fb48899245c44116, type: 3}
   countdown: {fileID: 0}

@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 68d6137783dcd0b48b82a82f92704631, type: 3}
-  m_Name: FruitbowlScenario
+  m_Name: FruitbowlScenario_hard
   m_EditorClassIdentifier: 
   lineArt: {fileID: 2800000, guid: dc6ec9ca354a64d65a3721c74df9a36d, type: 3}
   colorLayer: {fileID: 2800000, guid: d0b5c469378134b6a8d137c752b357a7, type: 3}
   incorrectColorLayers:
-  - {fileID: 2800000, guid: c012b4f8566354dd48602694051ebddd, type: 3}
   - {fileID: 2800000, guid: 6ae99f2d03d274a61a6b4f9dde1b9952, type: 3}
-  - {fileID: 2800000, guid: a634a2da1ecd549afac1bff6f764f21e, type: 3}
-  difficulty: 1
+  difficulty: 3
