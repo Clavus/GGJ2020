@@ -18,6 +18,7 @@ public class PaintBrush2000 : MonoBehaviour, IInteractable
 	public bool CanInteract => true;
 	public Vector3 startPosition;
 	public Quaternion startRotation;
+	private IInteracter currentInteracter;
 
 	void Start()
 	{
@@ -32,6 +33,7 @@ public class PaintBrush2000 : MonoBehaviour, IInteractable
 		body.useGravity = false;
 		body.isKinematic = true;
 		interacter.Attach(this);
+		currentInteracter = interacter;
 	}
 
 	public void Interact(IInteracter interacter)
@@ -45,6 +47,7 @@ public class PaintBrush2000 : MonoBehaviour, IInteractable
 		body.useGravity = true;
 		body.isKinematic = false;
 		transform.SetParent(null);
+		currentInteracter = null;
 	}
 
 	public void StopInteract()
@@ -62,6 +65,12 @@ public class PaintBrush2000 : MonoBehaviour, IInteractable
 		transform.SetParent(null);
 		transform.rotation = startRotation;
 		transform.position = startPosition;
+	}
+
+	public void OnPaint()
+	{
+		if (currentInteracter != null)
+			currentInteracter.DoFeedback();
 	}
 
 	private void UpdateRenderer()

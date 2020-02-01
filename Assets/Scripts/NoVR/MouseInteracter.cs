@@ -100,6 +100,11 @@ public class MouseInteracter : MonoBehaviour, IInteracter
 		interactable.GrabTransform.localPosition = grabbableOffset;
 		interactable.GrabTransform.localRotation = Quaternion.Euler(grabbableRotationOffset);
 	}
+
+	public void DoFeedback()
+	{
+
+	}
 }
 
 public enum MouseButton

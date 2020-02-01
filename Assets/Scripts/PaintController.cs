@@ -85,9 +85,10 @@ public class PaintController : MonoBehaviour
 		if (sphere == null || paintBrush == null)
 			return;
 
+		paintBrush.OnPaint();
+
 		// Set the brushsize
 		_brushSize = paintBrush.brushSize;
-
 
 		// Calculate where the collider hit in this objects local space
 		Vector3 hitPoint = transform.InverseTransformPoint(other.gameObject.transform.position);
