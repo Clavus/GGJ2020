@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 68d6137783dcd0b48b82a82f92704631, type: 3}
-  m_Name: SittingCatScenarioHard3
+  m_Name: FruitbowlScenarioHard1
   m_EditorClassIdentifier: 
-  lineArt: {fileID: 2800000, guid: c3787b07c91ad49a8952234d9b852ecb, type: 3}
-  colorLayer: {fileID: 2800000, guid: f97ddaa293fba462ea5e64d5b8147ae1, type: 3}
+  lineArt: {fileID: 2800000, guid: dc6ec9ca354a64d65a3721c74df9a36d, type: 3}
+  colorLayer: {fileID: 2800000, guid: d0b5c469378134b6a8d137c752b357a7, type: 3}
   incorrectColorLayers:
+  - {fileID: 2800000, guid: 6ae99f2d03d274a61a6b4f9dde1b9952, type: 3}
+  - {fileID: 2800000, guid: aa17ed0426de840cb98cc057c0a6e27e, type: 3}
   - {fileID: 2800000, guid: a4b054430dd0f4637b590d1d5a8be2a1, type: 3}
-  - {fileID: 2800000, guid: a757389e5b5dd4a20a0a3e9f85ec29ed, type: 3}
-  - {fileID: 2800000, guid: 32ef2ece232ac45f296786be527780ce, type: 3}
   difficulty: 3
