@@ -2,10 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonPress : MonoBehaviour
+public class ButtonPress : MonoBehaviour, IInteractable
 {
     public Collider collider;
     private Animation _animation;
+
+    public Transform GrabTransform => throw new System.NotImplementedException();
+
+    public bool CanGrab => false;
+
+    public bool CanInteract => true;
+
+    public void Grab(IInteracter interacter)
+    {
+    }
+
+    public void Interact(IInteracter interacter)
+    {
+        Press();
+    }
+
+    public void StopGrab()
+    {
+    }
+
+    public void StopInteract()
+    {
+        throw new System.NotImplementedException();
+    }
 
     private void Awake()
     {
@@ -18,8 +42,13 @@ public class ButtonPress : MonoBehaviour
     {
         if(other == collider)
         {
-            _animation.Play();
-            // TODO: Some kind of trigger to end the game
+            Press();
         }
+    }
+
+    private void Press()
+    {
+        _animation.Play();
+        // TODO: Some kind of trigger to end the game
     }
 }
