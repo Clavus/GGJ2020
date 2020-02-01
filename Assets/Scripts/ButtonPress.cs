@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ButtonPress : MonoBehaviour, IInteractable
 {
@@ -50,5 +51,6 @@ public class ButtonPress : MonoBehaviour, IInteractable
     {
         _animation.Play();
         // TODO: Some kind of trigger to end the game
+        SceneManager.LoadScene(0);
     }
 }
