@@ -4,49 +4,46 @@ using UnityEngine;
 
 public class GameManager
 {
-    private static GameManager instance;
+	private static GameManager instance;
 
-    private GameManager() { }
+	private GameManager() { }
 
-    public GameStates previousGameState;
-    public GameStates GameState;
+	public GameStates previousGameState;
+	public GameStates gameState;
 
-    public static GameManager Instance
-    {
-        get 
-        {
-            if (instance == null)
-            {
-                instance = new GameManager(); 
-            }
-            return instance;
-        }
-    }
+	public static GameManager Instance {
+		get {
+			if (instance == null)
+			{
+				instance = new GameManager();
+			}
+			return instance;
+		}
+	}
 
+	public delegate void GameStateChanged(GameStates currentGameState, GameStates newGameState);
+	public static event GameStateChanged OnGameStateChanged;
 
-    public delegate void GameStateChanged(GameStates currentGameState, GameStates newGameState);
-    public static event GameStateChanged OnGameStateChanged;
+	void Start()
+	{
+		gameState = GameStates.INTRO;
+	}
 
-    public GameStates gameState;
-
-    void Start()
-    {
-        gameState = GameStates.INTRO;
-    }
-
-    public void ChangeGameState(GameStates newGameState)
-    {
-        previousGameState = GameState;
-        GameStates currentGameState = GameState;
-        GameState = newGameState;
-        OnGameStateChanged(currentGameState, GameState);
-    }
+	public void ChangeGameState(GameStates newGameState)
+	{
+		previousGameState = gameState;
+		GameStates currentGameState = gameState;
+		gameState = newGameState;
+		OnGameStateChanged(currentGameState, gameState);
+	}
 }
 
 public enum GameStates
-{ 
-    INTRO,
-    PLAYING,
-    FINISH
+{
+	INTRO,
+	PLAYING,
+	SHOW_SCORE,
+	GAME_OVER,
+	FINISH
 }
 

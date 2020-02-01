@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
+using System.Linq;
 
 public class Game : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class Game : MonoBehaviour
 	private PaintController paintCanvas;
 	[SerializeField]
 	private ScenarioSO[] scenarios;
+	[SerializeField]
+	private float correctnessThreshold = 0.8f;
 
 	[SerializeField]
 	private Texture2D introTexture;
@@ -56,11 +59,11 @@ public class Game : MonoBehaviour
 	{
 		if (newGameState == GameStates.PLAYING)
 		{
-			StartRandomScenario();
+			StartRandomScenario(1);
 		}
 	}
 
-	private void StartRandomScenario()
+	private void StartRandomScenario(int difficulty)
 	{
 		if (IsScenarioActive)
 		{
@@ -68,21 +71,25 @@ public class Game : MonoBehaviour
 			return;
 		}
 
-		StartCoroutine(ScenarioRoutine(scenarios[Random.Range(0, scenarios.Length - 1)]));
+		ScenarioSO[] scenariosAtDifficulty = scenarios.Where(x => x.difficulty == difficulty).ToArray();
+		ScenarioSO randomScenario = scenariosAtDifficulty[Random.Range(0, scenariosAtDifficulty.Length - 1)];
+
+		StartCoroutine(ScenarioRoutine(randomScenario));
 	}
 
 	private IEnumerator ScenarioRoutine(ScenarioSO scenarioData)
 	{
-
 		IsScenarioActive = true;
-		paintCanvas.SetCanvasTexture(scenarioData.incorrectColorLayers[Random.Range(0, scenarioData.incorrectColorLayers.Length - 1)],
-			scenarioData.lineArt);
+		Texture2D paintingToDisplay = scenarioData.incorrectColorLayers[Random.Range(0, scenarioData.incorrectColorLayers.Length - 1)];
+		paintCanvas.SetCanvasTexture(paintingToDisplay, scenarioData.lineArt);
 
 		StartCountDown();
 
 		float nextCheck = Time.time + 5f;
 		while (true)
 		{
+#if UNITY_EDITOR
+			// Test correcctness periodically
 			if (nextCheck < Time.time)
 			{
 				nextCheck = Time.time + 5f;
@@ -94,7 +101,7 @@ public class Game : MonoBehaviour
 					Debug.Log($"Correct perc: {result}, Elapsed time: {s.ElapsedMilliseconds}ms, Frames: {Time.frameCount - startFrameCount}");
 				});
 			}
-
+#endif
 			yield return null;
 		}
 
