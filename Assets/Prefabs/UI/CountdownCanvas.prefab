@@ -332,7 +332,7 @@ MonoBehaviour:
   timerSeconds: 180
   tickerTrail: {fileID: 8554358901848015191}
   tickerRect: {fileID: 8554358902005133959}
-  active: 1
+  active: 0
 --- !u!82 &4427407773499997335
 AudioSource:
   m_ObjectHideFlags: 0

@@ -1614,11 +1614,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PaintCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 7540824990853165846, guid: e0379987c6044684eba9d4845cf2ed84,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 7540824990853165847, guid: e0379987c6044684eba9d4845cf2ed84,
         type: 3}
       propertyPath: m_LocalPosition.x

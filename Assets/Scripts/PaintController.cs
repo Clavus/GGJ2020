@@ -10,7 +10,6 @@ public class PaintController : MonoBehaviour
 
 	private MeshRenderer meshRenderer;
 	private Texture2D paintTexture;
-	private int _brushSize;
 
 	//private AudioSource audio;
 
@@ -92,10 +91,14 @@ public class PaintController : MonoBehaviour
 		paintBrush.OnPaint();
 
 		// Set the brushsize
-		_brushSize = paintBrush.brushSize;
+		int brushSize = paintBrush.brushSize;
+		ApplyPaint(other.gameObject.transform.position, brushSize, paintBrush.Color);
+	}
 
+	public void ApplyPaint(Vector3 worldHitPosition, int brushSize, Color color)
+	{
 		// Calculate where the collider hit in this objects local space
-		Vector3 hitPoint = transform.InverseTransformPoint(other.gameObject.transform.position);
+		Vector3 hitPoint = transform.InverseTransformPoint(worldHitPosition);
 		Vector3 hitPointScaled = new Vector3(hitPoint.x * gameObject.transform.localScale.x, hitPoint.y * gameObject.transform.localScale.y, hitPoint.z * gameObject.transform.localScale.z);
 		//Debug.Log("Hit at: " + hitPoint);
 		//Debug.Log("Scaled hit at: " + hitPointScaled);
@@ -113,25 +116,25 @@ public class PaintController : MonoBehaviour
 		//Debug.Log(hitPointPixelSpace);
 
 		// Change the color of the pixels to the paint color
-		Color[] paint = Enumerable.Repeat(paintBrush.Color, _brushSize * _brushSize).ToArray();
-		int brushX = (int)Mathf.Clamp(hitPointPixelSpace.x - (_brushSize / 2), 0, paintTexture.width - _brushSize);
-		int brushY = (int)Mathf.Clamp(hitPointPixelSpace.y - (_brushSize / 2), 0, paintTexture.height - _brushSize);
-		Color[] colors = paintTexture.GetPixels(brushX, brushY, _brushSize, _brushSize);
-		float brushRadius = _brushSize * 0.5f;
+		Color[] paint = Enumerable.Repeat(color, brushSize * brushSize).ToArray();
+		int brushX = (int)Mathf.Clamp(hitPointPixelSpace.x - (brushSize / 2), 0, paintTexture.width - brushSize);
+		int brushY = (int)Mathf.Clamp(hitPointPixelSpace.y - (brushSize / 2), 0, paintTexture.height - brushSize);
+		Color[] colors = paintTexture.GetPixels(brushX, brushY, brushSize, brushSize);
+		float brushRadius = brushSize * 0.5f;
 
 		// Make paint brush apply color in circular shape
-		for (int x = 0; x < _brushSize; x++)
+		for (int x = 0; x < brushSize; x++)
 		{
-			for (int y = 0; y < _brushSize; y++)
+			for (int y = 0; y < brushSize; y++)
 			{
-				int index = x + y * _brushSize;
+				int index = x + y * brushSize;
 				if (!IsBlack(colors[index]))
 					if (Vector2.Distance(new Vector2(x, y), new Vector2(brushRadius, brushRadius)) < brushRadius)
 						colors[index] = paint[index];
 			}
 		}
 
-		paintTexture.SetPixels(brushX, brushY, _brushSize, _brushSize, colors, 0);
+		paintTexture.SetPixels(brushX, brushY, brushSize, brushSize, colors, 0);
 		paintTexture.Apply();
 		/*
 		if (!audio.isPlaying)

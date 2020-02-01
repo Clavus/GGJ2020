@@ -5,8 +5,10 @@ using UnityEngine;
 public class PaintBrush2000 : MonoBehaviour, IInteractable
 {
 	[SerializeField] private Color color;
-	public int brushSize;
+	public int brushSize = 20;
 	[SerializeField] private Renderer brushRenderer;
+	[SerializeField] private ParticleSystem leakingParticles;
+	[SerializeField] private int particleSpotSize = 5;
 
 	public Color Color {
 		get { return color; }
@@ -19,6 +21,7 @@ public class PaintBrush2000 : MonoBehaviour, IInteractable
 	public Vector3 startPosition;
 	public Quaternion startRotation;
 	private IInteracter currentInteracter;
+	private List<ParticleCollisionEvent> collisionEvents = new List<ParticleCollisionEvent>();
 
 	void Start()
 	{
@@ -81,8 +84,31 @@ public class PaintBrush2000 : MonoBehaviour, IInteractable
 		UpdateRenderer();
 	}
 
+	void OnParticleCollision(GameObject other)
+	{
+		int numCollisionEvents = leakingParticles.GetCollisionEvents(other, collisionEvents);
+
+		PaintController paintCanvas = other.GetComponent<PaintController>();
+		Debug.Log("Particle collision! " + paintCanvas);
+		if (paintCanvas == null)
+			return;
+
+		for (int i = 0; i < collisionEvents.Count; i++)
+		{
+			Vector3 pos = collisionEvents[i].intersection;
+			paintCanvas.ApplyPaint(pos, particleSpotSize, color);
+		}
+	}
+
 	private void UpdateRenderer()
 	{
+		if (leakingParticles != null)
+		{
+			leakingParticles.Clear();
+			var main = leakingParticles.main;
+			main.startColor = color;
+			leakingParticles.Play();
+		}
 		brushRenderer.material.SetColor("_BrushColor", color);
 	}
 }
