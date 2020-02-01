@@ -5,6 +5,8 @@ using UnityEngine.XR;
 
 public class Game : MonoBehaviour
 {
+	public static Game Instance { get; private set; }
+
 	[SerializeField]
 	private GameObject vrRig;
 	[SerializeField]
@@ -25,6 +27,11 @@ public class Game : MonoBehaviour
 
 	public Countdown countdown;
 
+	private void Awake()
+	{
+		Instance = this;
+	}
+
 	private void Start()
 	{
 		bool useVR = XRSettings.enabled && !forceStartNoVr;
@@ -35,7 +42,14 @@ public class Game : MonoBehaviour
 
 		GameManager.OnGameStateChanged += GameStageChanged;
 
-		if (GameManager.Instance.gameState == GameStates.INTRO) paintCanvas.SetCanvasTexture(introBackground, introTexture);
+		if (GameManager.Instance.gameState == GameStates.INTRO)
+			paintCanvas.SetCanvasTexture(introBackground, introTexture);
+	}
+
+	public void OnButtonPressed()
+	{
+		if (GameManager.Instance.gameState == GameStates.INTRO)
+			GameManager.Instance.ChangeGameState(GameStates.PLAYING);
 	}
 
 	private void GameStageChanged(GameStates currentGameState, GameStates newGameState)
