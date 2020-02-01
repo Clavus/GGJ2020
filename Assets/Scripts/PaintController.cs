@@ -108,7 +108,7 @@ public class PaintController : MonoBehaviour
 		Debug.Log(hitPointPixelSpace);
 
 		// Change the color of the pixels to the paint color
-		Color[] paint = Enumerable.Repeat(paintBrush.color, _brushSize * _brushSize).ToArray();
+		Color[] paint = Enumerable.Repeat(paintBrush.Color, _brushSize * _brushSize).ToArray();
 		int brushX = (int)Mathf.Clamp(hitPointPixelSpace.x - (_brushSize / 2), 0, paintTexture.width - _brushSize);
 		int brushY = (int)Mathf.Clamp(hitPointPixelSpace.y - (_brushSize / 2), 0, paintTexture.height - _brushSize);
 		Color[] colors = paintTexture.GetPixels(brushX, brushY, _brushSize, _brushSize);

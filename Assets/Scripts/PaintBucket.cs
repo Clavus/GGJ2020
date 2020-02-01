@@ -14,7 +14,7 @@ public class PaintBucket : MonoBehaviour
 
 	public void ChangePaintOnBrush(PaintBrush2000 brush)
 	{
-		brush.color = paintbucketColor;
+		brush.Color = paintbucketColor;
 		Debug.Log("Changed paintbrush color to: " + paintbucketColor);
 	}
 
