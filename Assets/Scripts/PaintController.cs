@@ -11,11 +11,14 @@ public class PaintController : MonoBehaviour
 	private Texture2D texture;
 	private int _brushSize;
 
+	private AudioSource audio;
+
 	// Start is called before the first frame update
 	void Start()
 	{
 		meshRenderer = GetComponent<MeshRenderer>();
 		UpdateTexture();
+		audio = GetComponent<AudioSource>();
 	}
 
 	public void UpdateTexture()
@@ -78,5 +81,6 @@ public class PaintController : MonoBehaviour
 
 		texture.SetPixels(brushX, brushY, _brushSize, _brushSize, colors, 0);
 		texture.Apply();
+		if(!audio.isPlaying) audio.PlayOneShot(audio.clip);
 	}
 }

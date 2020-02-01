@@ -19,7 +19,6 @@ public class PaintBucket : MonoBehaviour
 	public void ChangePaintOnBrush(PaintBrush2000 brush)
 	{
 		brush.color = paintbucketColor;
-		soundEffect.PlayOneShot(soundEffect.clip);
 		Debug.Log("Changed paintbrush color to: " + paintbucketColor);
 	}
 
@@ -30,6 +29,7 @@ public class PaintBucket : MonoBehaviour
 		if (paintBrush != null)
 		{
 			ChangePaintOnBrush(paintBrush);
+			soundEffect.PlayOneShot(soundEffect.clip);
 		}
 	}
 }
