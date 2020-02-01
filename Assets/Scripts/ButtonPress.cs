@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class ButtonPress : MonoBehaviour, IInteractable
 {
-	public Countdown countDownScript;
-
 	public Transform GrabTransform => throw new System.NotImplementedException();
 
 	public bool CanGrab => false;
@@ -14,7 +12,7 @@ public class ButtonPress : MonoBehaviour, IInteractable
 	public bool CanInteract => true;
 
 	private Animation _animation;
-
+	private AudioSource _audio;
 
 	public void Grab(IInteracter interacter)
 	{
@@ -42,13 +40,13 @@ public class ButtonPress : MonoBehaviour, IInteractable
 	private void Awake()
 	{
 		_animation = GetComponent<Animation>();
-		if (_animation == null)
-			Debug.Log("No animation found");
+		_audio = GetComponent<AudioSource>();
 	}
 
 	private void Press()
 	{
-		_animation.Play();
+		_animation?.Play();
+		_audio?.Play();
 		//countDownScript.RestartTimer(60);
 		//SceneManager.LoadScene(0);
 		Game.Instance.OnButtonPressed();
