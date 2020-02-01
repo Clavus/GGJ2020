@@ -28,7 +28,7 @@ public class PaintController : MonoBehaviour
 
 		// Set copied texture as texture rendered
 		MaterialPropertyBlock block = new MaterialPropertyBlock();
-		block.SetTexture("_BaseMap", texture);
+		block.SetTexture("_ColorLayerTexture", texture);
 		meshRenderer.SetPropertyBlock(block);
 	}
 
@@ -81,6 +81,7 @@ public class PaintController : MonoBehaviour
 
 		texture.SetPixels(brushX, brushY, _brushSize, _brushSize, colors, 0);
 		texture.Apply();
-		if(!audio.isPlaying) audio.PlayOneShot(audio.clip);
+		if (!audio.isPlaying)
+			audio.PlayOneShot(audio.clip);
 	}
 }
