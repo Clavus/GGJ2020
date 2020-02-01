@@ -51,12 +51,12 @@ public class MouseInteracter : MonoBehaviour, IInteracter
         else if (Input.GetMouseButtonDown((int)MouseButton.RIGHT) && objectHeld && !objectExtended)
         {
             objectExtended = true;
-            MoveInteractable(grabbedInteractable, .5f);
+            MoveInteractable(grabbedInteractable, .05f);
         }
         else if (Input.GetMouseButtonUp((int)MouseButton.RIGHT) && objectHeld && objectExtended)
         {
             objectExtended = false;
-            MoveInteractable(grabbedInteractable, -.5f);
+            MoveInteractable(grabbedInteractable, -.05f);
         }
     }
 
