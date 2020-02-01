@@ -7,8 +7,8 @@ public class MouseInteracter : MonoBehaviour, IInteracter
 	public Camera NoVRCamera;
 	public float defaultDistance = 0.1f;
 	public float offsetOnClick = -0.1f;
-	[SerializeField] private Vector3 grabbableOffset = new Vector3(0, 0.03f, -0.05f);
-	[SerializeField] private Vector3 grabbableRotationOffset = new Vector3(-30, 0, 0);
+	[SerializeField] private Vector3 grabbableOffset = new Vector3(0, 0, -0.25f);
+	[SerializeField] private Vector3 grabbableRotationOffset = new Vector3(-75, 0, 0);
 
 	private IInteractable grabbedInteractable;
 
