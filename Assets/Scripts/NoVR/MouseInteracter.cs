@@ -77,6 +77,12 @@ public class MouseInteracter : MonoBehaviour, IInteracter
 			transform.position = mouseRayHit.point + mouseRayHit.normal * (defaultDistance + offsetDistance);
 		else
 			transform.position = ray.origin + ray.direction * castDistance;
+
+		if (objectHeld)
+		{
+			grabbedInteractable.GrabTransform.localPosition = new Vector3(0, 0.03f, -0.05f);
+			grabbedInteractable.GrabTransform.localRotation = Quaternion.Euler(-30, 0, 0);
+		}
 	}
 
 	void FixedUpdate()
@@ -88,11 +94,8 @@ public class MouseInteracter : MonoBehaviour, IInteracter
 	{
 		grabbedInteractable = interactable;
 		interactable.GrabTransform.SetParent(this.transform.GetChild(0).transform, false);
-	}
-
-	private void MoveInteractable(IInteractable interactable, float zOffset)
-	{
-		interactable.GrabTransform.GetComponent<Transform>().position += new Vector3(0, 0, zOffset);
+		interactable.GrabTransform.localPosition = new Vector3(0, 0.03f, -0.05f);
+		interactable.GrabTransform.localRotation = Quaternion.Euler(-30, 0, 0);
 	}
 }
 
