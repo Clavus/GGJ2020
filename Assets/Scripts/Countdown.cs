@@ -14,11 +14,15 @@ public class Countdown : MonoBehaviour
     private float _fillAmountInterval;
     private float _tickerRotationInterval;
 
+    private AudioSource audioSource;
+
 
     // Start is called before the first frame update
     void Awake()
     {
         CountdownSettings();
+        audioSource = GetComponent<AudioSource>();
+        StartCoroutine(PlayClockSound());
     }
 
     private void CountdownSettings()
@@ -53,5 +57,25 @@ public class Countdown : MonoBehaviour
         timerSeconds = time;
         CountdownSettings();
         active = true;
+    }
+
+    IEnumerator PlayClockSound()
+    {
+        float maxDelay = 3f;
+        float delay = maxDelay;
+        while (active)
+        {
+            if (_timerSeconds > timerSeconds/2)
+            {
+                audioSource.PlayOneShot(audioSource.clip);
+                yield return new WaitForSeconds(maxDelay);
+            }
+            else if(_timerSeconds < timerSeconds/2)
+            {
+                delay = maxDelay - Mathf.Lerp(maxDelay-.1f, 0, (_timerSeconds/(timerSeconds/2)));
+                audioSource.PlayOneShot(audioSource.clip);
+                yield return new WaitForSeconds(delay);
+            }
+        }
     }
 }
