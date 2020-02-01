@@ -12,13 +12,13 @@ public class PaintController : MonoBehaviour
 	private Texture2D paintTexture;
 	private int _brushSize;
 
-	private AudioSource audio;
+	//private AudioSource audio;
 
 	// Start is called before the first frame update
 	void Awake()
 	{
 		meshRenderer = GetComponent<MeshRenderer>();
-		audio = GetComponent<AudioSource>();
+		//audio = GetComponent<AudioSource>();
 	}
 
 	public void SetCanvasTexture(Texture2D colorTexture, Texture2D lineArtTexture)
@@ -33,7 +33,7 @@ public class PaintController : MonoBehaviour
 		block.SetTexture("_LineArtTexture", lineArtTexture);
 		meshRenderer.SetPropertyBlock(block);
 	}
-
+	
 	public void CalculateCorrectnessFraction(Texture2D correctTexture, float colorDistanceThreshold, System.Action<float> callback)
 	{
 		StartCoroutine(CalculateCorrectnessFractionRoutine(correctTexture, colorDistanceThreshold, callback));

@@ -45,8 +45,9 @@ public class ButtonPress : MonoBehaviour, IInteractable
     {
         _animation.Play();
         // TODO: Some kind of trigger to end the game
-        paintingSwitcher.SwitchPainting();
+        //paintingSwitcher.SwitchPainting();
         //countDownScript.RestartTimer(60);
         //SceneManager.LoadScene(0);
+        if (GameManager.Instance.gameState == GameStates.INTRO) GameManager.Instance.ChangeGameState(GameStates.PLAYING);
     }
 }
