@@ -13,8 +13,8 @@ public class PaintBrush : MonoBehaviour, IInteractable
 	public void Grab(IInteracter interacter)
 	{
 		var body = GetComponent<Rigidbody>();
-		transform.localPosition = Vector3.zero;
-		transform.localRotation = Quaternion.identity;
+		transform.localPosition = new Vector3(0, 0.03f, -0.05f);
+        transform.localRotation = Quaternion.Euler(-30, 0, 0);
 		body.useGravity = false;
 		body.isKinematic = true;
 		interacter.Attach(this);
@@ -30,6 +30,7 @@ public class PaintBrush : MonoBehaviour, IInteractable
 		var body = GetComponent<Rigidbody>();
 		body.useGravity = true;
 		body.isKinematic = false;
+        transform.localRotation = Quaternion.identity;
 		transform.SetParent(null);
 	}
 
