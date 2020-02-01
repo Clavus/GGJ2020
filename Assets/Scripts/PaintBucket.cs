@@ -6,13 +6,9 @@ public class PaintBucket : MonoBehaviour
 {
 	public Color paintbucketColor;
 	private AudioSource soundEffect;
-	private Renderer _renderer;
 
 	private void Awake()
 	{
-		_renderer = GetComponentInChildren<Renderer>();
-		if (_renderer != null)
-			_renderer.material.SetColor("_BaseColor", paintbucketColor);
 		soundEffect = GetComponent<AudioSource>();
 	}
 
