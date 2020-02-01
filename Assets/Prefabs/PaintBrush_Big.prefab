@@ -115,9 +115,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb750726a1e6aad49bd28707c4f9f3e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 1, b: 1, a: 1}
+  color: {r: 0.94509804, g: 0.8901961, b: 0.7882353, a: 1}
   brushSize: 20
   brushRenderer: {fileID: 5444863655139031938}
+  startPosition: {x: 0, y: 0, z: 0}
+  startRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &5444863655139031943
 GameObject:
   m_ObjectHideFlags: 0

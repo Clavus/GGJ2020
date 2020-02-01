@@ -23,6 +23,7 @@ public class PaintBrush2000 : MonoBehaviour, IInteractable
 	{
 		startPosition = transform.position;
 		startRotation = transform.rotation;
+		UpdateRenderer();
 	}
 
 	public void Grab(IInteracter interacter)
