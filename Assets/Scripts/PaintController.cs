@@ -128,8 +128,9 @@ public class PaintController : MonoBehaviour
 
 		paintTexture.SetPixels(brushX, brushY, _brushSize, _brushSize, colors, 0);
 		paintTexture.Apply();
+		/*
 		if (!audio.isPlaying)
-			audio.PlayOneShot(audio.clip);
+			audio.PlayOneShot(audio.clip);*/
 	}
 
 	private bool IsBlack(Color color)
