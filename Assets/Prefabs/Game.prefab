@@ -490,8 +490,8 @@ MonoBehaviour:
   difficultiesToBeat: 010000000100000002000000020000000300000003000000
   startLives: 3
   correctnessThreshold: 0.95
-  timerDuration: 120
-  timeReductionPerDifficulty: 30
+  timerDuration: 90
+  timeReductionPerDifficulty: 0
   introTexture: {fileID: 2800000, guid: 229f0c2d402b548bca66a86481a78923, type: 3}
   introBackground: {fileID: 2800000, guid: 500dd2af7ad613d4fb48899245c44116, type: 3}
   tutorialNoVrTexture: {fileID: 2800000, guid: c46d45f523fd44348a00307c11296dec, type: 3}
