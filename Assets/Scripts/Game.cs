@@ -50,6 +50,7 @@ public class Game : MonoBehaviour
 	public int LivesLeft { get; private set; }
 
 	private ScenarioSO activeScenario;
+	private ScenarioSO lastScenario;
 	private int currentLevelIndex = 0;
 
 	private void Awake()
@@ -118,6 +119,7 @@ public class Game : MonoBehaviour
 				break;
 			case GameStates.SHOW_SCORE:
 				countdown.active = false;
+				lastScenario = activeScenario;
 #if UNITY_EDITOR
 				var s = System.Diagnostics.Stopwatch.StartNew();
 				int startFrameCount = Time.frameCount;
@@ -174,7 +176,7 @@ public class Game : MonoBehaviour
 
 		Debug.Log($"Starting scenario at difficulty {difficulty} (level index {currentLevelIndex})");
 
-		ScenarioSO[] scenariosAtDifficulty = scenarios.Where(x => x.difficulty == difficulty).ToArray();
+		ScenarioSO[] scenariosAtDifficulty = scenarios.Where(x => x.difficulty == difficulty && x != lastScenario).ToArray();
 		ScenarioSO randomScenario = scenariosAtDifficulty[Random.Range(0, scenariosAtDifficulty.Length - 1)];
 
 		activeScenario = randomScenario;
