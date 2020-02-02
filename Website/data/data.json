@@ -1,0 +1,96 @@
+{
+    "Categories": [
+        {
+            "id": 1,
+            "name": "Cats",
+            "imageCount": 9,
+            "images": [
+                {
+                    "url": "Cats/SittingCat1_correct.png"
+                },
+                {
+                    "url": "Cats/SittingCat2_correct.png"
+                },
+                {
+                    "url": "Cats/SittingCat3_correct.png"
+                },
+                {
+                    "url": "Cats/Fruitbowl1_correct.png"
+                },
+                {
+                    "url": "Cats/Fruitbowl2_correct.png"
+                },
+                {
+                    "url": "Cats/Fruitbowl3_correct.png"
+                },
+                {
+                    "url": "Cats/LyingCat2_correct.png"
+                },
+                {
+                    "url": "Cats/LyingCat1_correct.png"
+                },
+                {
+                    "url": "Cats/LyingCat3_correct.png"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Two eyes",
+            "imageCount": 5,
+            "images": [
+                {
+                    "url": "2_Eyes/SittingCat1_correct.png"
+                },
+                {
+                    "url": "2_Eyes/SittingCat2_correct.png"
+                },
+                {
+                    "url": "2_Eyes/SittingCat3_correct.png"
+                },
+                {
+                    "url": "2_Eyes/Fruitbowl1_correct.png"
+                },
+                {
+                    "url": "2_Eyes/Fruitbowl3_correct.png"
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Fruit",
+            "imageCount": 4,
+            "images": [
+                {
+                    "url": "Fruit/Fruitbowl1_correct.png"
+                },
+                {
+                    "url": "Fruit/Fruitbowl2_correct.png"
+                },
+                {
+                    "url": "Fruit/Fruitbowl3_correct.png"
+                },
+                {
+                    "url": "Fruit/LyingCat2_correct.png"
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "name": "Still Life",
+            "imageCount": 3,
+            "images": [
+                {
+                    "url": "StillLife/Fruitbowl1_correct.png"
+                },
+                {
+                    "url": "StillLife/Fruitbowl2_correct.png"
+                },
+                {
+                    "url": "StillLife/Fruitbowl3_correct.png"
+                }
+            ]
+        }
+    ]
+
+}
