@@ -2015,6 +2015,16 @@ PrefabInstance:
       propertyPath: starCollection
       value: 
       objectReference: {fileID: 810437763}
+    - target: {fileID: 8043811507301726400, guid: 07ef39e2296873b4ba4dd66d009faad0,
+        type: 3}
+      propertyPath: finishTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 0561c65b910e442b0a817f6a6189d390, type: 3}
+    - target: {fileID: 8043811507301726400, guid: 07ef39e2296873b4ba4dd66d009faad0,
+        type: 3}
+      propertyPath: gameOverTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 8495efee11d9745d9aac46c5a45479dc, type: 3}
     - target: {fileID: 8043811507301726402, guid: 07ef39e2296873b4ba4dd66d009faad0,
         type: 3}
       propertyPath: m_Name

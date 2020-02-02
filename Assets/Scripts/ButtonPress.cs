@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.XR;
 
 public class ButtonPress : MonoBehaviour, IInteractable
 {
@@ -63,7 +63,7 @@ public class ButtonPress : MonoBehaviour, IInteractable
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.attachedRigidbody != null) // Is dynamic object
+		if (XRSettings.enabled && other.attachedRigidbody != null) // Is dynamic object
 			Press();
 	}
 }
