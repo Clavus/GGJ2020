@@ -39,6 +39,7 @@ public class PaintBrush2000 : MonoBehaviour, IInteractable
 		interacter.Attach(this);
 		currentInteracter = interacter;
 		IsGrabbed = true;
+        Cursor.visible = false;
 	}
 
 	public void Interact(IInteracter interacter)
@@ -54,6 +55,7 @@ public class PaintBrush2000 : MonoBehaviour, IInteractable
 		transform.SetParent(null);
 		currentInteracter = null;
 		IsGrabbed = false;
+        Cursor.visible = true;
 	}
 
 	public void StopInteract()
