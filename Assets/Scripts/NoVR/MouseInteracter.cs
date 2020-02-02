@@ -49,6 +49,7 @@ public class MouseInteracter : MonoBehaviour, IInteracter
 					{
 						objectHeld = true;
 						grabbedInteractable.Grab(this);
+                        StartCoroutine(MouseToMiddle());
 						Debug.Log("Hit brush");
 					}
 					else
@@ -75,11 +76,18 @@ public class MouseInteracter : MonoBehaviour, IInteracter
 			offsetDistance = 0;
 		}
 
-		if (hasHit)
-			transform.position = mouseRayHit.point + mouseRayHit.normal * (defaultDistance + offsetDistance);
-		else
-			transform.position = ray.origin + ray.direction;
-		//transform.position = ray.origin + ray.direction * castDistance;
+        if (objectExtended)
+        {
+            if (hasHit)
+                transform.position = (mouseRayHit.point + mouseRayHit.normal * (defaultDistance + offsetDistance)) + new Vector3(0, 0.05f, 0);
+            else
+                transform.position = (ray.origin + ray.direction) + new Vector3(0, 0.05f, -0.1f);
+            //transform.position = ray.origin + ray.direction * castDistance;
+        }
+        else
+        {
+            transform.position = new Vector3(ray.origin.x + ray.direction.x, ray.origin.y + ray.direction.y, 0.95f);
+        }
 
 		if (objectHeld)
 		{
@@ -105,6 +113,13 @@ public class MouseInteracter : MonoBehaviour, IInteracter
 	{
 
 	}
+
+    IEnumerator MouseToMiddle()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        yield return null;
+        Cursor.lockState = CursorLockMode.None;
+    }
 }
 
 public enum MouseButton
