@@ -4,6 +4,7 @@ using UnityEngine;
 public interface IInteractable
 {
 	Transform GrabTransform { get; }
+	bool IsGrabbed { get; }
 
 	bool CanGrab { get; }
 	void Grab(IInteracter interacter);

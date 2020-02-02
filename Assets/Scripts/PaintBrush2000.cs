@@ -16,7 +16,8 @@ public class PaintBrush2000 : MonoBehaviour, IInteractable
 	}
 
 	public Transform GrabTransform => transform;
-	public bool CanGrab => true;
+	public bool IsGrabbed { get; private set; }
+	public bool CanGrab => !IsGrabbed;
 	public bool CanInteract => true;
 	public Vector3 startPosition;
 	public Quaternion startRotation;
@@ -37,6 +38,7 @@ public class PaintBrush2000 : MonoBehaviour, IInteractable
 		body.isKinematic = true;
 		interacter.Attach(this);
 		currentInteracter = interacter;
+		IsGrabbed = true;
 	}
 
 	public void Interact(IInteracter interacter)
@@ -51,6 +53,7 @@ public class PaintBrush2000 : MonoBehaviour, IInteractable
 		body.isKinematic = false;
 		transform.SetParent(null);
 		currentInteracter = null;
+		IsGrabbed = false;
 	}
 
 	public void StopInteract()
