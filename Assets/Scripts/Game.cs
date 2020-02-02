@@ -73,6 +73,15 @@ public class Game : MonoBehaviour
 		GameManager.Instance.ChangeGameState(GameStates.INTRO);
 	}
 
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.R))
+			Restart();
+
+		if (Input.GetKeyDown(KeyCode.Space))
+			Object.FindObjectsOfType<PaintBrush2000>().ToList().ForEach(x => x.Respawn());
+	}
+
 	public void OnButtonPressed()
 	{
 		switch (GameManager.Instance.gameState)
