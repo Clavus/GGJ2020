@@ -40,6 +40,10 @@ public class Game : MonoBehaviour
 	[SerializeField]
 	private Texture2D introBackground;
 	[SerializeField]
+	private Texture2D tutorialNoVrTexture;
+	[SerializeField]
+	private Texture2D tutorialVrTexture;
+	[SerializeField]
 	private Texture2D gameOverTexture;
 	[SerializeField]
 	private Texture2D gameOverBackground;
@@ -87,6 +91,9 @@ public class Game : MonoBehaviour
 		switch (GameManager.Instance.gameState)
 		{
 			case GameStates.INTRO:
+				GameManager.Instance.ChangeGameState(GameStates.TUTORIAL);
+				break;
+			case GameStates.TUTORIAL:
 			case GameStates.WAIT_FOR_NEXT:
 				GameManager.Instance.ChangeGameState(GameStates.PLAYING);
 				break;
@@ -128,6 +135,9 @@ public class Game : MonoBehaviour
 			case GameStates.INTRO:
 				countdown.gameObject.SetActive(false);
 				paintCanvas.SetCanvasTexture(introBackground, introTexture);
+				break;
+			case GameStates.TUTORIAL:
+				paintCanvas.SetCanvasTexture(introBackground, XRSettings.enabled ? tutorialVrTexture : tutorialNoVrTexture);
 				break;
 			case GameStates.PLAYING:
 				StartRandomScenario(difficultiesToBeat[currentLevelIndex]);
