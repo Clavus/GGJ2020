@@ -9,6 +9,7 @@ public class MouseInteracter : MonoBehaviour, IInteracter
 	public float offsetOnClick = -0.1f;
 	[SerializeField] private Vector3 grabbableOffset = new Vector3(0, 0, -0.25f);
 	[SerializeField] private Vector3 grabbableRotationOffset = new Vector3(-75, 0, 0);
+    [SerializeField] private GameObject Hitmarker;
 
 	private IInteractable grabbedInteractable;
 
@@ -16,6 +17,7 @@ public class MouseInteracter : MonoBehaviour, IInteracter
 	private bool objectExtended;
 	private LayerMask grabMask;
 	private LayerMask paintMask;
+    private GameObject hitmarker;
 
 	void Start()
 	{
@@ -79,14 +81,29 @@ public class MouseInteracter : MonoBehaviour, IInteracter
         if (objectExtended)
         {
             if (hasHit)
-                transform.position = (mouseRayHit.point + mouseRayHit.normal * (defaultDistance + offsetDistance)) + new Vector3(0, 0.05f, 0);
+                transform.position = (mouseRayHit.point + mouseRayHit.normal * (defaultDistance + offsetDistance)) + new Vector3(0, 0.065f, 0);
             else
                 transform.position = (ray.origin + ray.direction) + new Vector3(0, 0.05f, -0.1f);
             //transform.position = ray.origin + ray.direction * castDistance;
+            if (hitmarker != null)
+                hitmarker.transform.position = new Vector3(0, -30, 0);
         }
         else
         {
             transform.position = new Vector3(ray.origin.x + ray.direction.x, ray.origin.y + ray.direction.y, 0.95f);
+
+            if (hasHit && objectHeld)
+            {
+                if (hitmarker == null)
+                    hitmarker = Instantiate(Hitmarker);
+                hitmarker.transform.position = mouseRayHit.point;
+                hitmarker.transform.rotation = mouseRayHit.collider.transform.rotation;
+            }
+            else
+            {
+                if (hitmarker != null)
+                    hitmarker.transform.position = new Vector3(0, -30, 0);
+            }
         }
 
 		if (objectHeld)
