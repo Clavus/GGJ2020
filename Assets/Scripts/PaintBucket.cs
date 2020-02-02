@@ -42,13 +42,14 @@ public class PaintBucket : MonoBehaviour
 
 	void OnParticleCollision(GameObject other)
 	{
+		//Debug.Log($"Particle collision with {other.name}");
 		int numCollisionEvents = splash.GetCollisionEvents(other, collisionEvents);
 
 		for (int i = 0; i < collisionEvents.Count; i++)
 		{
 			Vector3 pos = collisionEvents[i].intersection;
 			PaintController paintCanvas = collisionEvents[i].colliderComponent.GetComponent<PaintController>();
-			//Debug.Log($"Particle collision with {other.name}");
+
 
 			if (paintCanvas != null)
 			{
