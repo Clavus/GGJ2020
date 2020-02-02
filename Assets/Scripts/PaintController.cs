@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class PaintController : MonoBehaviour
 {
-	public Color paintColor = Color.red;
 	public int correctnessCalculateRowsPerFrame = 9;
+	public bool canColorBlack = false;
 
 	private MeshRenderer meshRenderer;
 	private Texture2D paintTexture;
@@ -17,6 +17,7 @@ public class PaintController : MonoBehaviour
 	void Awake()
 	{
 		meshRenderer = GetComponent<MeshRenderer>();
+		SetCanvasTexture(meshRenderer.sharedMaterial.GetTexture("_ColorLayerTexture") as Texture2D, null);
 		//audio = GetComponent<AudioSource>();
 	}
 
@@ -29,13 +30,17 @@ public class PaintController : MonoBehaviour
 		MaterialPropertyBlock block = new MaterialPropertyBlock();
 		meshRenderer.GetPropertyBlock(block);
 		block.SetTexture("_ColorLayerTexture", paintTexture);
-		block.SetTexture("_LineArtTexture", lineArtTexture);
+		if (lineArtTexture != null)
+			block.SetTexture("_LineArtTexture", lineArtTexture);
 		meshRenderer.SetPropertyBlock(block);
 	}
 
 	public void CalculateCorrectnessFraction(Texture2D correctTexture, float colorDistanceThreshold, System.Action<float> intermediateCallback, System.Action<float> finalCallback)
 	{
-		StartCoroutine(CalculateCorrectnessFractionRoutine(correctTexture, colorDistanceThreshold, intermediateCallback, finalCallback));
+		if (correctnessCalculateRowsPerFrame == 0)
+			Debug.LogError("Cannot calculate for this canvas");
+		else
+			StartCoroutine(CalculateCorrectnessFractionRoutine(correctTexture, colorDistanceThreshold, intermediateCallback, finalCallback));
 	}
 
 	private IEnumerator CalculateCorrectnessFractionRoutine(Texture2D correctTexture, float colorDistanceThreshold, System.Action<float> intermediateCallback, System.Action<float> finalCallback)
@@ -85,6 +90,8 @@ public class PaintController : MonoBehaviour
 		SphereCollider sphere = other.gameObject.GetComponent<SphereCollider>();
 		PaintBrush2000 paintBrush = other.gameObject.GetComponentInParent<PaintBrush2000>();
 
+		//Debug.Log($"Trigger stay {gameObject.name}, {sphere}, {paintBrush}");
+
 		if (sphere == null || paintBrush == null)
 			return;
 
@@ -122,17 +129,24 @@ public class PaintController : MonoBehaviour
 		Color[] colors = paintTexture.GetPixels(brushX, brushY, brushSize, brushSize);
 		float brushRadius = brushSize * 0.5f;
 
+		int pixelsAffected = 0;
+
 		// Make paint brush apply color in circular shape
 		for (int x = 0; x < brushSize; x++)
 		{
 			for (int y = 0; y < brushSize; y++)
 			{
 				int index = x + y * brushSize;
-				if (!IsBlack(colors[index]))
+				if (canColorBlack || !IsBlack(colors[index]))
 					if (Vector2.Distance(new Vector2(x, y), new Vector2(brushRadius, brushRadius)) < brushRadius)
+					{
 						colors[index] = paint[index];
+						pixelsAffected++;
+					}
 			}
 		}
+
+		//Debug.Log("Pixels affected: " + pixelsAffected);
 
 		paintTexture.SetPixels(brushX, brushY, brushSize, brushSize, colors, 0);
 		paintTexture.Apply();

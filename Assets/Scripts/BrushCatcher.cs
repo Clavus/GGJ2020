@@ -10,7 +10,7 @@ public class BrushCatcher : MonoBehaviour
 		IInteractable interactable = other.GetComponentOrAtBody<IInteractable>();
 
 		// Catch all interactibles and respawn;
-		if (interactable != null)
+		if (interactable != null && !interactable.IsGrabbed)
 			interactable.Respawn();
 	}
 }
