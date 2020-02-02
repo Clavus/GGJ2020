@@ -44,14 +44,17 @@ public class PaintBucket : MonoBehaviour
 	{
 		int numCollisionEvents = splash.GetCollisionEvents(other, collisionEvents);
 
-		PaintController paintCanvas = other.GetComponent<PaintController>();
-		if (paintCanvas == null)
-			return;
-
 		for (int i = 0; i < collisionEvents.Count; i++)
 		{
 			Vector3 pos = collisionEvents[i].intersection;
-			paintCanvas.ApplyPaint(pos, (int)(particleSpotSize * 0.8f + (particleSpotSize * 0.4f * Random.value)), paintbucketColor);
+			PaintController paintCanvas = collisionEvents[i].colliderComponent.GetComponent<PaintController>();
+			//Debug.Log($"Particle collision with {other.name}");
+
+			if (paintCanvas != null)
+			{
+				paintCanvas.ApplyPaint(pos, (int)(particleSpotSize * 0.8f + (particleSpotSize * 0.4f * Random.value)), paintbucketColor);
+				//Debug.Log($"Applying particle[{i}] paint to {paintCanvas.gameObject.name}");
+			}
 		}
 	}
 
