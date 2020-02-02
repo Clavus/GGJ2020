@@ -91,14 +91,12 @@ public class PaintBrush2000 : MonoBehaviour, IInteractable
 	{
 		int numCollisionEvents = leakingParticles.GetCollisionEvents(other, collisionEvents);
 
-		PaintController paintCanvas = other.GetComponent<PaintController>();
-		if (paintCanvas == null)
-			return;
-
 		for (int i = 0; i < collisionEvents.Count; i++)
 		{
 			Vector3 pos = collisionEvents[i].intersection;
-			paintCanvas.ApplyPaint(pos, particleSpotSize, color);
+			PaintController paintCanvas = collisionEvents[i].colliderComponent.GetComponent<PaintController>();
+			if (paintCanvas != null)
+				paintCanvas.ApplyPaint(pos, particleSpotSize, color);
 		}
 	}
 

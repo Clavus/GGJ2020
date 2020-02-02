@@ -111,13 +111,15 @@ public class PaintController : MonoBehaviour
 		//Debug.Log("Scaled hit at: " + hitPointScaled);
 
 		// Move this objects local space origin to the bottom left corner to match the Texture2D origin
-		Vector3 halfSpriteSizeLocalSpace = meshRenderer.bounds.size / 2;
+		Vector3 halfSpriteSizeLocalSpace = transform.InverseTransformDirection(meshRenderer.bounds.extents);
 		Vector3 hitPointPixelSpace = hitPointScaled + halfSpriteSizeLocalSpace;
 		//Debug.Log("Hit in pixel space: " + hitPointPixelSpace);
 
+		Vector3 boundsLocalSize = transform.InverseTransformDirection(meshRenderer.bounds.size);
+
 		// Scale the hit from local size to pixel size
-		float scaleX = (meshRenderer.bounds.size.x) / paintTexture.width;
-		float scaleY = (meshRenderer.bounds.size.y) / paintTexture.height;
+		float scaleX = (boundsLocalSize.x) / paintTexture.width;
+		float scaleY = (boundsLocalSize.y) / paintTexture.height;
 		hitPointPixelSpace.x /= scaleX;
 		hitPointPixelSpace.y /= scaleY;
 		//Debug.Log(hitPointPixelSpace);
