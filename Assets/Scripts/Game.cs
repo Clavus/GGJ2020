@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 using System.Linq;
+using System.Timers;
 
 public class Game : MonoBehaviour
 {
@@ -80,8 +81,14 @@ public class Game : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.Space))
 			Object.FindObjectsOfType<PaintBrush2000>().ToList().ForEach(x => x.Respawn());
-	}
 
+		if (Input.GetKey(KeyCode.Escape))
+		{
+			Debug.Log("Game quit!");
+			Application.Quit();
+		}
+	}
+	
 	public void OnButtonPressed()
 	{
 		switch (GameManager.Instance.gameState)
