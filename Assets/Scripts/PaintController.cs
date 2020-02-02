@@ -7,6 +7,7 @@ public class PaintController : MonoBehaviour
 {
 	public int correctnessCalculateRowsPerFrame = 9;
 	public bool canColorBlack = false;
+	public bool IsCalculating;
 
 	private MeshRenderer meshRenderer;
 	private Texture2D paintTexture;
@@ -45,6 +46,7 @@ public class PaintController : MonoBehaviour
 
 	private IEnumerator CalculateCorrectnessFractionRoutine(Texture2D correctTexture, float colorDistanceThreshold, System.Action<float> intermediateCallback, System.Action<float> finalCallback)
 	{
+		IsCalculating = true;
 		int w = correctTexture.width;
 		int h = correctTexture.height;
 
@@ -81,6 +83,7 @@ public class PaintController : MonoBehaviour
 			}
 		}
 
+		IsCalculating = false;
 		finalCallback?.Invoke(numCorrect / (float)(w * h));
 
 	}
@@ -104,6 +107,9 @@ public class PaintController : MonoBehaviour
 
 	public void ApplyPaint(Vector3 worldHitPosition, int brushSize, Color color)
 	{
+		if (IsCalculating)
+			return;
+
 		// Calculate where the collider hit in this objects local space
 		Vector3 hitPoint = transform.InverseTransformPoint(worldHitPosition);
 		Vector3 hitPointScaled = new Vector3(hitPoint.x * gameObject.transform.localScale.x, hitPoint.y * gameObject.transform.localScale.y, hitPoint.z * gameObject.transform.localScale.z);

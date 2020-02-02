@@ -39,7 +39,7 @@ public class PaintBrush2000 : MonoBehaviour, IInteractable
 		interacter.Attach(this);
 		currentInteracter = interacter;
 		IsGrabbed = true;
-        Cursor.visible = false;
+		Cursor.visible = false;
 	}
 
 	public void Interact(IInteracter interacter)
@@ -55,7 +55,7 @@ public class PaintBrush2000 : MonoBehaviour, IInteractable
 		transform.SetParent(null);
 		currentInteracter = null;
 		IsGrabbed = false;
-        Cursor.visible = true;
+		Cursor.visible = true;
 	}
 
 	public void StopInteract()
@@ -96,9 +96,13 @@ public class PaintBrush2000 : MonoBehaviour, IInteractable
 		for (int i = 0; i < collisionEvents.Count; i++)
 		{
 			Vector3 pos = collisionEvents[i].intersection;
-			PaintController paintCanvas = collisionEvents[i].colliderComponent.GetComponent<PaintController>();
-			if (paintCanvas != null)
-				paintCanvas.ApplyPaint(pos, particleSpotSize, color);
+			if (collisionEvents[i].colliderComponent != null)
+			{
+				PaintController paintCanvas = collisionEvents[i].colliderComponent.GetComponent<PaintController>();
+				if (paintCanvas != null)
+					paintCanvas.ApplyPaint(pos, particleSpotSize, color);
+			}
+
 		}
 	}
 

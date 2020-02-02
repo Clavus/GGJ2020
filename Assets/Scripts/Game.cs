@@ -30,7 +30,7 @@ public class Game : MonoBehaviour
 	[SerializeField]
 	private int startLives;
 	[SerializeField]
-	private float correctnessThreshold = 0.8f;
+	private float relativeCorrectnessThreshold = 0.75f;
 	[SerializeField]
 	private float timerDuration = 120f;
 	[SerializeField]
@@ -59,6 +59,7 @@ public class Game : MonoBehaviour
 	private ScenarioSO activeScenario;
 	private ScenarioSO lastScenario;
 	private int currentLevelIndex = 0;
+	private float currentCorrectnessThreshold;
 
 	private void Awake()
 	{
@@ -92,7 +93,7 @@ public class Game : MonoBehaviour
 			Application.Quit();
 		}
 	}
-	
+
 	public void OnButtonPressed()
 	{
 		switch (GameManager.Instance.gameState)
@@ -105,7 +106,8 @@ public class Game : MonoBehaviour
 				GameManager.Instance.ChangeGameState(GameStates.PLAYING);
 				break;
 			case GameStates.PLAYING:
-				GameManager.Instance.ChangeGameState(GameStates.SHOW_SCORE);
+				if (!paintCanvas.IsCalculating)
+					GameManager.Instance.ChangeGameState(GameStates.SHOW_SCORE);
 				break;
 			case GameStates.SHOW_SCORE:
 				break;
@@ -166,7 +168,7 @@ public class Game : MonoBehaviour
 #endif
 
 						currentLevelIndex++;
-						bool win = result >= correctnessThreshold;
+						bool win = result >= currentCorrectnessThreshold;
 						scoreBar.UpdateScore(result);
 						if (!win)
 						{
@@ -216,9 +218,14 @@ public class Game : MonoBehaviour
 
 		Texture2D paintingToDisplay = activeScenario.incorrectColorLayers[Random.Range(0, activeScenario.incorrectColorLayers.Length - 1)];
 		paintCanvas.SetCanvasTexture(paintingToDisplay, activeScenario.lineArt);
+		paintCanvas.CalculateCorrectnessFraction(activeScenario.colorLayer, 0.05f, null, x =>
+		{
+			currentCorrectnessThreshold = x + (1 - x) * relativeCorrectnessThreshold;
+			Debug.Log($"Painting start correctness: {x}, set threshold to {currentCorrectnessThreshold}");
+			scoreBar.SetThreshold(currentCorrectnessThreshold);
+		});
 
 		scoreBar.ResetBar();
-		scoreBar.SetThreshold(correctnessThreshold);
 		countdown.gameObject.SetActive(true);
 		countdown.RestartTimer(timerDuration - (timeReductionPerDifficulty * (difficulty - 1)));
 	}
