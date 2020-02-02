@@ -494,8 +494,8 @@ MonoBehaviour:
   timeReductionPerDifficulty: 30
   introTexture: {fileID: 2800000, guid: 229f0c2d402b548bca66a86481a78923, type: 3}
   introBackground: {fileID: 2800000, guid: 500dd2af7ad613d4fb48899245c44116, type: 3}
-  tutorialNoVrTexture: {fileID: 2800000, guid: 1da84155446f1214097b2c6974d91c12, type: 3}
-  tutorialVrTexture: {fileID: 2800000, guid: 1da84155446f1214097b2c6974d91c12, type: 3}
+  tutorialNoVrTexture: {fileID: 2800000, guid: c46d45f523fd44348a00307c11296dec, type: 3}
+  tutorialVrTexture: {fileID: 2800000, guid: 68fdb089907c4473190e31efded9f059, type: 3}
   gameOverTexture: {fileID: 2800000, guid: 74a8c14fc5ca0f7448cd08d427da5df6, type: 3}
   gameOverBackground: {fileID: 2800000, guid: 500dd2af7ad613d4fb48899245c44116, type: 3}
   finishTexture: {fileID: 2800000, guid: f2fef0734f6b1a04a8139d9b4e82dba9, type: 3}
