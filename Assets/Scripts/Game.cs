@@ -113,6 +113,10 @@ public class Game : MonoBehaviour
 		currentLevelIndex = 0;
 		LivesLeft = startLives;
 		activeScenario = null;
+		scoreBar.ResetBar();
+		starCollection.Restart();
+		countdown.active = false;
+		countdown.gameObject.SetActive(false);
 		GameManager.Instance.ChangeGameState(GameStates.INTRO);
 	}
 
