@@ -118,6 +118,8 @@ MonoBehaviour:
   color: {r: 0.94509804, g: 0.8901961, b: 0.7882353, a: 1}
   brushSize: 7
   brushRenderer: {fileID: 5444863655139031938}
+  leakingParticles: {fileID: 0}
+  particleSpotSize: 5
   startPosition: {x: 0, y: 0, z: 0}
   startRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &5444863655139031943
@@ -131,9 +133,9 @@ GameObject:
   - component: {fileID: 5444863655139031936}
   - component: {fileID: 5444863655139031939}
   - component: {fileID: 5444863655139031938}
-  - component: {fileID: 4118502585313217862}
+  - component: {fileID: 1398423100848339756}
   m_Layer: 10
-  m_Name: Cube
+  m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -199,8 +201,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &4118502585313217862
-BoxCollider:
+--- !u!136 &1398423100848339756
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -209,6 +211,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.04116338, y: 0.61095715, z: 0.03914921}
-  m_Center: {x: 0.00000039891648, y: 0.007417748, z: -0.00000018936892}
+  m_Radius: 0.02058169
+  m_Height: 0.6055629
+  m_Direction: 1
+  m_Center: {x: 0.0000003989165, y: 0.004720638, z: -0.00000018936892}
