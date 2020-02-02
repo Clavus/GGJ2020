@@ -9,6 +9,7 @@ public class ButtonPress : MonoBehaviour, IInteractable
 
 	public Transform GrabTransform => throw new System.NotImplementedException();
 
+	public bool IsGrabbed => false;
 	public bool CanGrab => false;
 
 	public bool CanInteract => true;
