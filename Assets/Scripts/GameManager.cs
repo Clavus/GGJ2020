@@ -41,6 +41,7 @@ public class GameManager
 public enum GameStates
 {
 	INTRO,
+	TUTORIAL,
 	PLAYING,
 	SHOW_SCORE,
 	WAIT_FOR_NEXT,

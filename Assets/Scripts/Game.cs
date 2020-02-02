@@ -40,6 +40,10 @@ public class Game : MonoBehaviour
 	[SerializeField]
 	private Texture2D introBackground;
 	[SerializeField]
+	private Texture2D tutorialNoVrTexture;
+	[SerializeField]
+	private Texture2D tutorialVrTexture;
+	[SerializeField]
 	private Texture2D gameOverTexture;
 	[SerializeField]
 	private Texture2D gameOverBackground;
@@ -73,11 +77,23 @@ public class Game : MonoBehaviour
 		GameManager.Instance.ChangeGameState(GameStates.INTRO);
 	}
 
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.R))
+			Restart();
+
+		if (Input.GetKeyDown(KeyCode.Space))
+			Object.FindObjectsOfType<PaintBrush2000>().ToList().ForEach(x => x.Respawn());
+	}
+
 	public void OnButtonPressed()
 	{
 		switch (GameManager.Instance.gameState)
 		{
 			case GameStates.INTRO:
+				GameManager.Instance.ChangeGameState(GameStates.TUTORIAL);
+				break;
+			case GameStates.TUTORIAL:
 			case GameStates.WAIT_FOR_NEXT:
 				GameManager.Instance.ChangeGameState(GameStates.PLAYING);
 				break;
@@ -104,6 +120,10 @@ public class Game : MonoBehaviour
 		currentLevelIndex = 0;
 		LivesLeft = startLives;
 		activeScenario = null;
+		scoreBar.ResetBar();
+		starCollection.Restart();
+		countdown.active = false;
+		countdown.gameObject.SetActive(false);
 		GameManager.Instance.ChangeGameState(GameStates.INTRO);
 	}
 
@@ -115,6 +135,9 @@ public class Game : MonoBehaviour
 			case GameStates.INTRO:
 				countdown.gameObject.SetActive(false);
 				paintCanvas.SetCanvasTexture(introBackground, introTexture);
+				break;
+			case GameStates.TUTORIAL:
+				paintCanvas.SetCanvasTexture(introBackground, XRSettings.enabled ? tutorialVrTexture : tutorialNoVrTexture);
 				break;
 			case GameStates.PLAYING:
 				StartRandomScenario(difficultiesToBeat[currentLevelIndex]);

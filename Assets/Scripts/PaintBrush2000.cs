@@ -89,7 +89,6 @@ public class PaintBrush2000 : MonoBehaviour, IInteractable
 		int numCollisionEvents = leakingParticles.GetCollisionEvents(other, collisionEvents);
 
 		PaintController paintCanvas = other.GetComponent<PaintController>();
-		Debug.Log("Particle collision! " + paintCanvas);
 		if (paintCanvas == null)
 			return;
 

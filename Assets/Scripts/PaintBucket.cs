@@ -5,8 +5,11 @@ using UnityEngine;
 public class PaintBucket : MonoBehaviour
 {
 	public Color paintbucketColor;
+	[SerializeField] private float particleSpotSize = 20f;
+
 	private AudioSource soundEffect;
 	private ParticleSystem splash;
+	private List<ParticleCollisionEvent> collisionEvents = new List<ParticleCollisionEvent>();
 
 	private void Awake()
 	{
@@ -36,4 +39,20 @@ public class PaintBucket : MonoBehaviour
 			splash.Play();
 		}
 	}
+
+	void OnParticleCollision(GameObject other)
+	{
+		int numCollisionEvents = splash.GetCollisionEvents(other, collisionEvents);
+
+		PaintController paintCanvas = other.GetComponent<PaintController>();
+		if (paintCanvas == null)
+			return;
+
+		for (int i = 0; i < collisionEvents.Count; i++)
+		{
+			Vector3 pos = collisionEvents[i].intersection;
+			paintCanvas.ApplyPaint(pos, (int)(particleSpotSize * 0.8f + (particleSpotSize * 0.4f * Random.value)), paintbucketColor);
+		}
+	}
+
 }
