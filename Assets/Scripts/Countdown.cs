@@ -21,7 +21,6 @@ public class Countdown : MonoBehaviour
 	{
 		CountdownSettings();
 		audioSource = GetComponent<AudioSource>();
-		StartCoroutine(PlayClockSound());
 	}
 
 	private void CountdownSettings()
@@ -56,6 +55,7 @@ public class Countdown : MonoBehaviour
 		timerSeconds = time;
 		CountdownSettings();
 		active = true;
+		StartCoroutine(PlayClockSound());
 	}
 
 	IEnumerator PlayClockSound()
