@@ -21,6 +21,8 @@ public class Game : MonoBehaviour
 	[SerializeField]
 	private Countdown countdown;
 	[SerializeField]
+	private StarCollection starCollection;
+	[SerializeField]
 	private ScenarioSO[] scenarios;
 	[SerializeField]
 	private int[] difficultiesToBeat = new int[] { 1, 1, 2, 2, 3, 3 };
@@ -140,6 +142,7 @@ public class Game : MonoBehaviour
 						{
 							scoreBar.DoFail();
 							LivesLeft--;
+							starCollection.UpdateStars();
 							if (LivesLeft <= 0)
 							{
 								GameManager.Instance.ChangeGameState(GameStates.GAME_OVER);
