@@ -30,7 +30,7 @@ public class Countdown : MonoBehaviour
 		_tickerRotationInterval = 360 / timerSeconds;
 
 		tickerTrail.fillAmount = 0;
-		tickerRect.eulerAngles = Vector3.zero;
+		tickerRect.localEulerAngles = Vector3.zero;
 	}
 
 	// Update is called once per frame
@@ -40,7 +40,7 @@ public class Countdown : MonoBehaviour
 		{
 			_timerSeconds -= Time.deltaTime;
 			tickerTrail.fillAmount += (_fillAmountInterval * Time.deltaTime);
-			tickerRect.Rotate(0, 0, -(_tickerRotationInterval * Time.deltaTime));
+			tickerRect.Rotate(0, 0, -(_tickerRotationInterval * Time.deltaTime), Space.Self);
 		}
 
 		if (_timerSeconds <= 0)
