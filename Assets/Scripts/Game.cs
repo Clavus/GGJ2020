@@ -10,7 +10,9 @@ public class Game : MonoBehaviour
 	public static Game Instance { get; private set; }
 
 	[SerializeField]
-	private GameObject vrRig;
+	private GameObject oculusVrRig;
+	[SerializeField]
+	private GameObject unityVrRig;
 	[SerializeField]
 	private GameObject noVrRig;
 	[SerializeField]
@@ -56,6 +58,8 @@ public class Game : MonoBehaviour
 	public bool IsScenarioActive => activeScenario != null;
 	public int LivesLeft { get; private set; }
 
+	public bool IsOculus { get; private set; }
+
 	private ScenarioSO activeScenario;
 	private ScenarioSO lastScenario;
 	private int currentLevelIndex = 0;
@@ -69,7 +73,14 @@ public class Game : MonoBehaviour
 	private void Start()
 	{
 		bool useVR = XRSettings.enabled && !forceStartNoVr;
-		vrRig.SetActive(useVR);
+		IsOculus = XRSettings.loadedDeviceName.ToLower() == "oculus";
+#if UNITY_ANDROID
+		IsOculus = true; // Always on Quest
+#endif
+
+		Debug.Log($"Use VR: {useVR}. Is Oculus: {IsOculus}");
+		oculusVrRig.SetActive(useVR && IsOculus);
+		unityVrRig.SetActive(useVR && !IsOculus);
 		noVrRig.SetActive(!useVR);
 		if (!useVR)
 			XRSettings.enabled = false;

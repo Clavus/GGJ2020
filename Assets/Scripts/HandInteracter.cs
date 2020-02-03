@@ -27,30 +27,71 @@ public class HandInteracter : MonoBehaviour, IInteracter
 
 	void Update()
 	{
-		if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, GetControllerEnum()))
+		if (Game.Instance.IsOculus)
 		{
-			if (grabbedInteractable != null && grabbedInteractable.CanInteract)
-				grabbedInteractable.Interact(this);
+			if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, GetControllerEnum()))
+			{
+				if (grabbedInteractable != null && grabbedInteractable.CanInteract)
+					grabbedInteractable.Interact(this);
+			}
+			else if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger, GetControllerEnum()))
+			{
+				if (grabbedInteractable != null && grabbedInteractable.CanInteract)
+					grabbedInteractable.StopInteract();
+			}
+
+			if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, GetControllerEnum()))
+			{
+				if (interactableInFocus != null && interactableInFocus.CanGrab)
+					interactableInFocus.Grab(this);
+			}
+			else if (OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger, GetControllerEnum()))
+			{
+				if (grabbedInteractable != null)
+					grabbedInteractable.StopGrab();
+			}
+
+			if (lastFeedbackTime < Time.time - 0.05f)
+				OVRInput.SetControllerVibration(0, 0, GetControllerEnum());
 		}
-		else if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger, GetControllerEnum()))
+		else
 		{
-			if (grabbedInteractable != null && grabbedInteractable.CanInteract)
-				grabbedInteractable.StopInteract();
+			string interactInput = "";
+			string grabInput = "";
+			if (hand == EHand.Left)
+			{
+				interactInput = "Controller_LeftTouchpadPress";
+				grabInput = "Controller_LeftTrigger";
+			}
+			else if (hand == EHand.Right)
+			{
+				interactInput = "Controller_RightTouchpadPress";
+				grabInput = "Controller_RightTrigger";
+			}
+
+			if (Input.GetButtonDown(interactInput))
+			{
+				if (grabbedInteractable != null && grabbedInteractable.CanInteract)
+					grabbedInteractable.Interact(this);
+			}
+			else if (Input.GetButtonUp(interactInput))
+			{
+				if (grabbedInteractable != null && grabbedInteractable.CanInteract)
+					grabbedInteractable.StopInteract();
+			}
+
+			if (Input.GetAxis(grabInput) != 0)
+			{
+				if (interactableInFocus != null && interactableInFocus.CanGrab)
+					interactableInFocus.Grab(this);
+			}
+			else if (Mathf.Abs(Input.GetAxis(grabInput)) < float.Epsilon)
+			{
+				if (grabbedInteractable != null)
+					grabbedInteractable.StopGrab();
+			}
 		}
 
-		if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, GetControllerEnum()))
-		{
-			if (interactableInFocus != null && interactableInFocus.CanGrab)
-				interactableInFocus.Grab(this);
-		}
-		else if (OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger, GetControllerEnum()))
-		{
-			if (grabbedInteractable != null)
-				grabbedInteractable.StopGrab();
-		}
-
-		if (lastFeedbackTime < Time.time - 0.05f)
-			OVRInput.SetControllerVibration(0, 0, GetControllerEnum());
 	}
 
 	public void Attach(IInteractable interactable)
